@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wedding Site Questionnaire</title>
+<meta name="description" content="Tell us about your wedding so we can design your site.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   Studio identity — a paper questionnaire on a desk blotter.
+   Deep slate-green ground, warm paper card, green ink, brass
+   tally marks for progress. Deliberately not the wedding's
+   palette: this is the studio's face, not the couple's site.
+   ============================================================ */
+:root{
+  --desk:#2A3130;
+  --desk-2:#222827;
+  --paper:#F4F1E9;
+  --paper-2:#EAE5D9;
+  --ink:#20272A;
+  --ink-soft:#4E585A;
+  --green:#386A5F;
+  --brass:#B08849;
+  --rule:rgba(32,39,42,.16);
+  --err:#8C3A2E;
+
+  --display:'Fraunces','Georgia',serif;
+  --body:'IBM Plex Sans','Segoe UI',system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+
+html,body{margin:0;min-height:100%}
+body{
+  background:var(--desk);
+  background-image:radial-gradient(120% 80% at 50% -10%, #333B39 0%, var(--desk) 45%, var(--desk-2) 100%);
+  color:var(--ink);
+  font-family:var(--body);font-size:16px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  padding:clamp(.75rem,3vw,3rem) clamp(.5rem,3vw,2rem) 4rem;
+}
+h1,h2,h3{font-family:var(--display);font-weight:500;margin:0;line-height:1.15}
+
+/* ---------- the paper ---------- */
+.sheet{
+  max-width:44rem;margin:0 auto;background:var(--paper);
+  box-shadow:0 1px 0 rgba(255,255,255,.35) inset, 0 18px 50px rgba(0,0,0,.35);
+  position:relative;
+}
+
+/* ---------- masthead ---------- */
+.masthead{padding:clamp(1.5rem,4vw,2.5rem) clamp(1.25rem,4vw,3rem) 0}
+.studio{
+  font-size:.66rem;letter-spacing:.28em;text-transform:uppercase;color:var(--green);font-weight:600;
+}
+.masthead h1{font-size:clamp(1.7rem,1.2rem + 2.4vw,2.6rem);margin:.6rem 0 .4rem;letter-spacing:-.015em}
+.masthead .sub{color:var(--ink-soft);max-width:34rem;font-size:.98rem}
+
+/* ---------- progress: brass tally marks ---------- */
+.tally{display:flex;gap:.34rem;padding:clamp(1.2rem,3vw,1.8rem) clamp(1.25rem,4vw,3rem) 0;align-items:flex-end}
+.tally i{
+  display:block;height:3px;flex:1;background:var(--paper-2);position:relative;overflow:hidden;
+}
+.tally i::after{content:"";position:absolute;inset:0;background:var(--brass);transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.3,.7,.3,1)}
+.tally i[data-on="1"]::after{transform:scaleX(1)}
+.tally i[data-cur="1"]{height:7px;background:#D6D0C0;box-shadow:0 0 0 1px rgba(176,136,73,.4)}
+.unlock{
+  padding:.7rem clamp(1.25rem,4vw,3rem) 0;font-size:.8rem;color:var(--ink-soft);
+}
+.unlock b{color:var(--green);font-weight:600}
+
+/* ---------- section body ---------- */
+.body{padding:clamp(1.4rem,4vw,2.4rem) clamp(1.25rem,4vw,3rem) clamp(1.5rem,4vw,2.5rem)}
+.sec-num{
+  font-family:var(--display);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--brass);font-weight:600;
+}
+.body h2{font-size:clamp(1.35rem,1.1rem + 1.4vw,1.95rem);margin:.35rem 0 .5rem}
+.body .intro{color:var(--ink-soft);max-width:36rem;margin:0 0 1.9rem;font-size:.96rem}
+
+/* ---------- fields ---------- */
+.q{margin:0 0 1.7rem;max-width:36rem}
+.q > label,.q .qlabel{
+  display:block;font-weight:500;font-size:1rem;margin-bottom:.15rem;color:var(--ink);
+}
+.q .req{color:var(--green);font-size:.72rem;margin-left:.35rem;letter-spacing:.06em}
+.q .help{font-size:.86rem;color:var(--ink-soft);margin:.2rem 0 .55rem;line-height:1.5}
+.q .help em{font-style:italic}
+
+input[type=text],input[type=email],input[type=url],input[type=date],textarea,select{
+  width:100%;font:inherit;font-size:1rem;color:var(--ink);
+  background:#FBFAF6;border:1px solid var(--rule);border-radius:0;
+  padding:.62rem .7rem;transition:border-color .15s,box-shadow .15s;
+}
+textarea{min-height:6.5rem;resize:vertical;line-height:1.55}
+input:focus,textarea:focus,select:focus{
+  outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(56,106,95,.16);
+}
+input::placeholder,textarea::placeholder{color:#9AA0A0;font-style:italic}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+@media (max-width:520px){.pair{grid-template-columns:1fr}}
+
+.q.invalid input,.q.invalid textarea{border-color:var(--err);background:#FDF6F4}
+.errmsg{display:none;color:var(--err);font-size:.82rem;margin-top:.35rem}
+.q.invalid .errmsg{display:block}
+
+/* colour row */
+.colorrow{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;margin-bottom:.6rem}
+.colorrow input[type=color]{
+  width:2.6rem;height:2.6rem;padding:0;border:1px solid var(--rule);background:#FBFAF6;cursor:pointer;
+}
+.colorrow button{
+  font:inherit;font-size:.82rem;padding:.4rem .7rem;cursor:pointer;
+  background:transparent;border:1px solid var(--rule);color:var(--ink-soft);
+}
+.colorrow button:hover{border-color:var(--green);color:var(--green)}
+
+/* tappable prompt chips (FAQ helper) */
+.chips{display:flex;flex-wrap:wrap;gap:.35rem;margin:0 0 .7rem}
+.chips button{
+  font:inherit;font-size:.8rem;padding:.32rem .6rem;cursor:pointer;
+  background:var(--paper-2);border:1px solid transparent;color:var(--ink-soft);
+}
+.chips button:hover{border-color:var(--green);color:var(--green)}
+.chips button:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+
+/* repeatable blocks */
+.card{
+  border:1px solid var(--rule);background:#FBFAF6;padding:1.1rem;margin:0 0 1rem;position:relative;
+}
+.card-head{
+  display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:.9rem;
+}
+.card-head span{
+  font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--brass);font-weight:600;
+}
+.card-head button{
+  font:inherit;font-size:.78rem;background:none;border:0;color:var(--ink-soft);cursor:pointer;text-decoration:underline;
+}
+.card-head button:hover{color:var(--err)}
+.addbtn{
+  font:inherit;font-size:.88rem;padding:.55rem .9rem;cursor:pointer;
+  background:transparent;border:1px dashed var(--green);color:var(--green);width:100%;
+}
+.addbtn:hover{background:rgba(56,106,95,.06)}
+
+/* callout */
+.note{
+  border-left:2px solid var(--green);padding:.15rem 0 .15rem .9rem;margin:0 0 1.6rem;
+  font-size:.9rem;color:var(--ink-soft);max-width:34rem;
+}
+.note b{color:var(--ink)}
+
+.spec{background:var(--paper-2);padding:1rem 1.1rem;margin:0 0 1.5rem;max-width:36rem}
+.spec h4{font-family:var(--body);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--green);margin:0 0 .6rem}
+.spec ul{margin:0;padding-left:1.1rem;font-size:.88rem;color:var(--ink-soft)}
+.spec li{margin-bottom:.3rem}
+
+/* ---------- footer nav ---------- */
+.nav{
+  display:flex;gap:.7rem;align-items:center;
+  padding:1.2rem clamp(1.25rem,4vw,3rem) clamp(1.4rem,4vw,2.2rem);
+  border-top:1px solid var(--rule);
+}
+.btn{
+  font:inherit;font-size:.95rem;font-weight:500;padding:.72rem 1.5rem;cursor:pointer;
+  border:1px solid var(--green);background:var(--green);color:var(--paper);
+  transition:background .15s,color .15s;
+}
+.btn:hover{background:#2E594F}
+.btn.ghost{background:transparent;color:var(--green)}
+.btn.ghost:hover{background:rgba(56,106,95,.08)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn:focus-visible,.addbtn:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+.nav .spacer{flex:1}
+.saved{font-size:.78rem;color:var(--ink-soft);opacity:0;transition:opacity .3s}
+.saved[data-on="1"]{opacity:1}
+
+/* ---------- review + done ---------- */
+.review{font-size:.92rem}
+.review .rsec{border-top:1px solid var(--rule);padding:1rem 0}
+.review .rsec:first-child{border-top:0}
+.review h3{font-size:1.05rem;margin-bottom:.5rem}
+.review dl{margin:0;display:grid;gap:.5rem}
+.review .row{display:grid;grid-template-columns:11rem 1fr;gap:1rem}
+@media (max-width:600px){.review .row{grid-template-columns:1fr;gap:.1rem}}
+.review dt{font-size:.76rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
+.review dd{margin:0;white-space:pre-wrap}
+.review .empty{color:#A6ABAA;font-style:italic}
+.review .jump{background:none;border:0;color:var(--green);font:inherit;font-size:.8rem;cursor:pointer;text-decoration:underline;padding:0}
+
+.done{text-align:center;padding:clamp(3rem,9vw,5rem) 2rem}
+.done h2{font-size:clamp(1.6rem,1.2rem + 2vw,2.4rem);margin-bottom:.7rem}
+.done p{color:var(--ink-soft);max-width:28rem;margin:0 auto 1rem}
+.done .seal{
+  width:64px;height:64px;margin:0 auto 1.6rem;border-radius:50%;
+  border:1.5px solid var(--brass);display:grid;place-items:center;
+  font-family:var(--display);font-size:1.6rem;color:var(--brass);
+}
+.fallback{
+  margin-top:1.6rem;padding:1rem;background:var(--paper-2);font-size:.85rem;text-align:left;
+}
+.fallback textarea{margin-top:.6rem;min-height:9rem;font-size:.8rem;font-family:ui-monospace,Menlo,Consolas,monospace}
+
+.foot{
+  max-width:44rem;margin:1.2rem auto 0;text-align:center;
+  font-size:.76rem;color:rgba(244,241,233,.45);
+}
+</style>
+</head>
+<body>
+
+<main class="sheet" id="sheet" role="main"></main>
+<p class="foot" id="foot"></p>
+
+<script>
+(() => {
+"use strict";
+
+/* ============================================================
+   1. CONFIG — the only part you need to edit to go live
+   ============================================================ */
+const CONFIG = {
+  // Formspree endpoint. Create a form at formspree.io, paste the URL here.
+  formEndpoint: "https://formspree.io/f/xdeokdre",
+
+  studioName:   "Kokkinias Studio",
+  designerName: "George",
+  designerEmail:"georgekokkinias@gmail.com",
+
+  // Pre-created shared folder the couple drops photos into.
+  driveFolderUrl: "https://drive.google.com/REPLACE_ME",
+
+  // Sections that must be complete before design concepts can be made.
+  gatingSections: [0, 1, 2, 6]
+};
+
+/* ============================================================
+   2. QUESTIONS — edit freely. The form renders from this.
+   ============================================================ */
+const SECTIONS = [
+  {
+    key:"basics", title:"The basics",
+    intro:"Start here. Takes about two minutes.",
+    fields:[
+      { id:"names", type:"pair", label:"Your two names, spelled exactly as they should appear",
+        req:true, ph:["First partner","Second partner"] },
+      { id:"nicknames", type:"pair", label:"Shorter versions you actually go by",
+        help:"Leave blank if your full names are what you want shown.",
+        ph:["e.g. Penny","e.g. George"] },
+      { id:"otherScript", type:"text", label:"Do your names appear in another language or alphabet too?",
+        help:"Often one of the nicest details on a finished site.", ph:"e.g. Πηνελόπη & Γιώργος" },
+      { id:"date", type:"date", label:"Wedding date", req:true },
+      { id:"domain", type:"pair", label:"Want a custom domain? Give me a first choice and a backup",
+        help:"I'll check availability and register it for you.",
+        ph:["pennyandgeorge.com","thekokkiniaswedding.com"] },
+      { id:"language", type:"text", label:"Will any part of your wedding be in a second language?",
+        help:"If so, which — and roughly who needs it? I can build the site so guests see it in their own language.",
+        ph:"e.g. Greek — George's side, and most of the older guests" }
+    ]
+  },
+  {
+    key:"weekend", title:"The weekend",
+    intro:"Add every gathering guests are invited to — not just the ceremony and reception. Welcome drinks, rehearsal dinner, morning-after brunch, and any cultural or religious events.",
+    repeat:{ id:"events", label:"Event", min:1, addLabel:"+ Add another event" },
+    fields:[
+      { id:"name", type:"text", label:"What do you call this event?", req:true,
+        help:"Use your words, not \u201cReception #2\u201d.", ph:"e.g. Krevati, Ceremony, Farewell Brunch" },
+      { id:"when", type:"text", label:"Day and time", req:true, ph:"e.g. Saturday 12 June, 2:30pm – 4:00pm" },
+      { id:"venue", type:"text", label:"Venue name", req:true, ph:"e.g. Saints Peter and Paul Church" },
+      { id:"address", type:"text", label:"Full address", req:true, ph:"1401 Wagner Rd, Glenview, IL 60025" },
+      { id:"dress", type:"text", label:"Dress code — and any nuance", req:true,
+        help:"The nuance is the useful part. <em>\u201cShoulders covered in the church.\u201d \u201cThe lawn is grass \u2014 rethink stilettos.\u201d</em>",
+        ph:"Formal — shoulders covered in the church, please" },
+      { id:"about", type:"textarea", label:"In a sentence or two: what is this, and what should guests expect?", req:true,
+        ph:"Dinner, then the floor opens and stays open. Late night gyros at eleven." },
+      { id:"tradition", type:"textarea", label:"Is there a tradition here that guests unfamiliar with it should understand?",
+        help:"Optional, and my favourite thing to include. A short, warm explanation makes people who've never been to a wedding like yours feel welcome instead of lost. Write it how you'd explain it to a friend.",
+        ph:"You'll see crowns joined by a single ribbon, and the couple led three times around the altar. There's no vow exchange and no kiss — the crowning is the moment." },
+      { id:"arrival", type:"textarea", label:"Anything about arriving — parking, accessibility, \u201cthe lot fills fast\u201d?",
+        ph:"Free lot on the north side, but it fills fast. Aim to arrive by 2:15. Step-free entrance on the west side." }
+    ]
+  },
+  {
+    key:"story", title:"Your story",
+    intro:"This is what makes the site yours instead of a template with your names dropped in. Talk, don't write — I'll shape the wording.",
+    note:"<b>Writing feels like homework?</b> Record a voice memo instead and drop it in the photo folder. Ten minutes of you two talking is better material than an hour of trying to write well.",
+    fields:[
+      { id:"met", type:"textarea", label:"How did you meet?", req:true,
+        help:"Where, when, and one specific detail you both remember.",
+        ph:"We met at a cousin's wedding in Greektown, seated at the table furthest from the bar. We've both since argued this was intentional." },
+      { id:"proposal", type:"textarea", label:"The proposal — where, when, what actually happened", req:true,
+        ph:"At sunrise, in the cold, with a thermos of coffee. She said yes before he finished." },
+      { id:"moments", type:"textarea", label:"Two or three moments in between that matter to you", req:true,
+        help:"A trip, a move, a bad apartment, a dog, a year you got through. These become the chapters.",
+        ph:"Summer 2022 — three weeks in Naxos, one rental car with no air conditioning, and the discovery that we travel well together." },
+      { id:"truths", type:"pair", label:"One true thing about each of you", req:true,
+        help:"Not a r\u00e9sum\u00e9. The thing your friends would say.",
+        ph:["Ruthless Scrabble player, the reason we own eleven plants","3D prints things nobody asked for"] },
+      { id:"leaveout", type:"text", label:"Anything you'd rather I left out?", ph:"Optional" }
+    ]
+  },
+  {
+    key:"people", title:"People",
+    intro:"Your wedding party, and anyone else with a job on the day — parents, grandparents, your officiant.",
+    repeat:{ id:"party", label:"Person", min:0, addLabel:"+ Add a person" },
+    fields:[
+      { id:"name", type:"text", label:"Name", req:true, ph:"Dimitri Kokkinias" },
+      { id:"role", type:"text", label:"Their role, in your words", req:true,
+        help:"Koumbaro, Best Man, Maid of Honor, Man of Honor, Officiant, Flower Person \u2014 whatever you actually call them.",
+        ph:"Koumbaro" },
+      { id:"line", type:"text", label:"One line about them, ideally specific or funny",
+        ph:"Will give a speech. Has been asked to keep it under four minutes." }
+    ],
+    after:[
+      { id:"exclude", type:"text", label:"Anyone who should <em>not</em> appear on the site?",
+        help:"Family is complicated. Just say the name \u2014 no explanation needed.", ph:"Optional" }
+    ]
+  },
+  {
+    key:"travel", title:"Travel and where to stay",
+    intro:"Skip this whole section if everyone's local.",
+    fields:[
+      { id:"hotel", type:"textarea", label:"Hotel block",
+        help:"Name, booking link, block code, rate, and the book-by date.",
+        ph:"Hyatt Place Chicago / Downtown\nlink: ...\ncode: KOKPEN27\n$189/night\nbook by 12 May" },
+      { id:"getting", type:"textarea", label:"How do out-of-towners get here and get around?",
+        help:"Nearest airport, shuttle plans, or just \u201ceveryone will drive\u201d.",
+        ph:"O'Hare is 35 minutes. One shuttle from the hotel at 5:15pm — there is exactly one and it will not wait." },
+      { id:"recs", type:"textarea", label:"Three places you'd actually send a friend",
+        help:"Restaurants, coffee, a walk, something for kids. One line each on why. Your real recommendations, not a tourism list.",
+        ph:"Greektown on Halsted — if you're in town Friday, this is where we'd send you." }
+    ]
+  },
+  {
+    key:"faq", title:"Questions guests keep asking",
+    intro:"This section quietly does more work than any other. It's where guests go instead of texting you at 11pm.",
+    fields:[
+      { id:"faq", type:"textarea", label:"Every question you've been asked, or expect to be \u2014 with your answers", req:true,
+        chips:["Can I bring kids?","Can I bring a date?","Indoors or outdoors?","What time does it end?","Is there parking?","What's the dress code really?","Open bar?","Vegetarian / vegan / halal / kosher options?","How long is the ceremony?","Is the venue accessible?","What if I'm running late?"],
+        help:"Tap a prompt to add it, then type your answer underneath.",
+        ph:"Can I bring my kids?\n— Absolutely. There's a kids' table at dinner and a quiet room upstairs.",
+        rows:10 }
+    ]
+  },
+  {
+    key:"look", title:"Photos and feel",
+    intro:"Don't try to be a designer here. Just react.",
+    fields:[
+      { id:"photos", type:"url", label:"Link to your photo folder", req:true,
+        help:"I've shared a folder with you \u2014 drop everything in there and paste the link back. Or use your own Drive / Dropbox link.",
+        ph:"https://drive.google.com/..." },
+      { id:"photographer", type:"text", label:"Who took them?",
+        help:"I'll credit your photographer on the site.", ph:"Ada Lin Photography" },
+      { id:"feel", type:"text", label:"Three words for how you want it to feel", req:true,
+        ph:"warm, simple, a little formal" },
+      { id:"colors", type:"color", label:"Do you have wedding colors or a theme?",
+        help:"Swatches, hex codes, or just names is fine.",
+        follow:{ id:"colorsWhere", label:"And where do they show up?",
+                 help:"Florals, bridesmaid dresses, the venue, stationery \u2014 or nowhere in particular.",
+                 ph:"Bridesmaid dresses and the invitations" } },
+      { id:"likes", type:"textarea", label:"Three to five things you like the look of \u2014 not wedding sites", req:true,
+        help:"A restaurant's website, a book cover, a hotel, a museum poster, an album sleeve. Links, or describe them. What you're drawn to outside of weddings tells me far more than wedding inspiration does.",
+        ph:"https://...\nThe cover of that Rachel Cusk paperback\nThe Standard hotel's site" },
+      { id:"avoid", type:"textarea", label:"What do you NOT want?", req:true,
+        help:"The most useful question here, and the one people always leave blank. Please don't.",
+        ph:"No script fonts. Nothing pink. Not rustic. Please don't make it look like every other wedding site." }
+    ]
+  },
+  {
+    key:"else", title:"Anything else",
+    intro:"Last one.",
+    fields:[
+      { id:"anything", type:"textarea", label:"Anything I haven't asked that matters to you?",
+        ph:"Optional \u2014 but this is where the good stuff usually turns up." },
+      { id:"contact", type:"text", label:"Best email to reach you both", req:true, ph:"you@example.com" }
+    ]
+  }
+];
+
+/* ============================================================
+   3. STATE + STORAGE
+   ============================================================ */
+const KEY = "wedding-intake-v2";
+let step = 0;               // 0..SECTIONS.length-1, then review
+const REVIEW = SECTIONS.length;
+let answers = {};
+let submitted = false;
+
+/* Storage is best-effort: works when hosted, degrades silently in
+   sandboxed previews rather than throwing. */
+const store = {
+  get(){ try { return JSON.parse(localStorage.getItem(KEY) || "{}"); } catch { return {}; } },
+  set(v){ try { localStorage.setItem(KEY, JSON.stringify(v)); return true; } catch { return false; } },
+  clear(){ try { localStorage.removeItem(KEY); } catch {} }
+};
+answers = store.get();
+
+const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c =>
+  ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* value helpers — repeat blocks store arrays of objects */
+function val(sec, fid, idx){
+  if (idx == null) return (answers[sec.key] || {})[fid] || "";
+  const arr = (answers[sec.key] || {})[sec.repeat.id] || [];
+  return (arr[idx] || {})[fid] || "";
+}
+function setVal(sec, fid, v, idx){
+  answers[sec.key] = answers[sec.key] || {};
+  if (idx == null) { answers[sec.key][fid] = v; }
+  else {
+    const a = answers[sec.key][sec.repeat.id] = answers[sec.key][sec.repeat.id] || [];
+    a[idx] = a[idx] || {};
+    a[idx][fid] = v;
+  }
+  queueSave();
+}
+function repeatCount(sec){
+  const a = (answers[sec.key] || {})[sec.repeat.id] || [];
+  return Math.max(a.length, sec.repeat.min || 0);
+}
+
+let saveTimer, savedFlag = false;
+function queueSave(){
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => {
+    savedFlag = store.set(answers);
+    const el = document.getElementById("savedMsg");
+    if (el && savedFlag){ el.dataset.on = "1"; setTimeout(()=>{ el.dataset.on = "0"; }, 1600); }
+  }, 400);
+}
+
+/* ============================================================
+   4. COMPLETION / GATING
+   ============================================================ */
+function sectionComplete(sec){
+  const need = f => f.req;
+  if (sec.repeat){
+    const arr = (answers[sec.key] || {})[sec.repeat.id] || [];
+    if (!arr.length && (sec.repeat.min || 0) > 0) return false;
+    if (!arr.length) return true;
+    return arr.every(item => sec.fields.filter(need).every(f => (item[f.id] || "").trim()));
+  }
+  return sec.fields.filter(need).every(f => {
+    const v = val(sec, f.id);
+    if (f.type === "pair") return Array.isArray(v) ? v.every(x => (x||"").trim()) : false;
+    return String(v).trim();
+  });
+}
+function sectionTouched(sec){
+  const bag = answers[sec.key];
+  if (!bag) return false;
+  const any = v => Array.isArray(v) ? v.some(x => x && String(x).trim())
+    : (v && typeof v === "object") ? Object.values(v).some(any)
+    : !!(v && String(v).trim());
+  return Object.values(bag).some(any);
+}
+function missingForConcepts(){
+  return CONFIG.gatingSections.filter(i => !sectionComplete(SECTIONS[i])).length;
+}
+
+/* ============================================================
+   5. RENDER
+   ============================================================ */
+function fieldHTML(sec, f, idx){
+  const name = idx == null ? `${sec.key}.${f.id}` : `${sec.key}.${sec.repeat.id}[${idx}].${f.id}`;
+  const v = val(sec, f.id, idx);
+  const req = f.req ? `<span class="req">required</span>` : "";
+  const help = f.help ? `<p class="help">${f.help}</p>` : "";
+  let input = "";
+
+  if (f.type === "pair"){
+    const a = Array.isArray(v) ? v : ["",""];
+    input = `<div class="pair">
+      <input type="text" data-n="${esc(name)}" data-pair="0" value="${esc(a[0])}" placeholder="${esc((f.ph||[])[0]||"")}">
+      <input type="text" data-n="${esc(name)}" data-pair="1" value="${esc(a[1])}" placeholder="${esc((f.ph||[])[1]||"")}">
+    </div>`;
+  } else if (f.type === "textarea"){
+    const chips = f.chips ? `<div class="chips">${f.chips.map(c =>
+      `<button type="button" data-chip="${esc(name)}">${esc(c)}</button>`).join("")}</div>` : "";
+    input = chips + `<textarea data-n="${esc(name)}" rows="${f.rows||5}" placeholder="${esc(f.ph||"")}">${esc(v)}</textarea>`;
+  } else if (f.type === "color"){
+    const colors = Array.isArray(v) ? v : [];
+    input = `<div class="colorrow" data-colorrow="${esc(name)}">
+        ${colors.map((c,i)=>`<input type="color" value="${esc(c)}" data-n="${esc(name)}" data-ci="${i}">`).join("")}
+        <input type="color" value="#B08849" data-n="${esc(name)}" data-ci="${colors.length}">
+        <button type="button" data-addcolor="${esc(name)}">+ another</button>
+      </div>`;
+    if (f.follow){
+      const fv = val(sec, f.follow.id, idx);
+      input += `<label class="qlabel" style="margin-top:.9rem">${f.follow.label}</label>
+        ${f.follow.help ? `<p class="help">${f.follow.help}</p>` : ""}
+        <input type="text" data-n="${esc(sec.key + '.' + f.follow.id)}" value="${esc(fv)}" placeholder="${esc(f.follow.ph||"")}">`;
+    }
+  } else {
+    const tp = f.type === "date" ? "date" : f.type === "url" ? "url" : "text";
+    input = `<input type="${tp}" data-n="${esc(name)}" value="${esc(v)}" placeholder="${esc(f.ph||"")}">`;
+  }
+
+  return `<div class="q" data-q="${esc(name)}">
+    <label class="qlabel">${f.label}${req}</label>
+    ${help}${input}
+    <p class="errmsg">Please fill this in before continuing.</p>
+  </div>`;
+}
+
+function sectionHTML(sec, i){
+  let inner = "";
+
+  if (sec.repeat){
+    const n = repeatCount(sec);
+    for (let k = 0; k < n; k++){
+      inner += `<div class="card" data-card="${k}">
+        <div class="card-head">
+          <span>${esc(sec.repeat.label)} ${k+1}</span>
+          ${n > (sec.repeat.min||1) ? `<button type="button" data-remove="${k}">Remove</button>` : ""}
+        </div>
+        ${sec.fields.map(f => fieldHTML(sec, f, k)).join("")}
+      </div>`;
+    }
+    if (n === 0) inner += `<p class="help" style="margin-bottom:.8rem">Nothing here yet — add anyone you'd like on the site, or skip this section entirely.</p>`;
+    inner += `<button type="button" class="addbtn" data-add="1">${esc(sec.repeat.addLabel)}</button>`;
+  } else {
+    inner += sec.fields.map(f => fieldHTML(sec, f)).join("");
+  }
+  if (sec.after) inner += sec.after.map(f => fieldHTML(sec, f)).join("");
+
+  const spec = sec.key === "look" ? `
+    <div class="spec">
+      <h4>Photo notes — worth 30 seconds</h4>
+      <ul>
+        <li>Originals only. Not texted, not screenshotted from Instagram — those arrive compressed and look soft full-width.</li>
+        <li>3–5 landscape shots of you two for the homepage.</li>
+        <li>1–2 per story moment. Old phone photos are perfect here.</li>
+        <li>One portrait each, plus one per person you listed.</li>
+        <li>Send extras. Far easier to cut than to chase.</li>
+      </ul>
+    </div>` : "";
+
+  return `
+    <div class="body">
+      <p class="sec-num">Section ${i+1} of ${SECTIONS.length}</p>
+      <h2>${esc(sec.title)}</h2>
+      ${sec.intro ? `<p class="intro">${sec.intro}</p>` : ""}
+      ${sec.note ? `<p class="note">${sec.note}</p>` : ""}
+      ${spec}
+      ${inner}
+    </div>`;
+}
+
+function reviewHTML(){
+  const rows = SECTIONS.map((sec, i) => {
+    let body = "";
+    if (sec.repeat){
+      const arr = (answers[sec.key] || {})[sec.repeat.id] || [];
+      body = arr.length ? arr.map((item, k) => `
+        <div class="row"><dt>${esc(sec.repeat.label)} ${k+1}</dt><dd>${
+          sec.fields.map(f => item[f.id] ? `<b>${esc(f.label.replace(/<[^>]+>/g,''))}:</b> ${esc(item[f.id])}` : "")
+            .filter(Boolean).join("<br>") || '<span class="empty">empty</span>'}</dd></div>`).join("")
+        : `<div class="row"><dt>—</dt><dd class="empty">nothing added</dd></div>`;
+      if (sec.after) body += sec.after.map(f => `<div class="row"><dt>${esc(f.label.replace(/<[^>]+>/g,''))}</dt><dd>${
+        esc(val(sec,f.id)) || '<span class="empty">skipped</span>'}</dd></div>`).join("");
+    } else {
+      body = sec.fields.map(f => {
+        let v = val(sec, f.id);
+        if (Array.isArray(v)) v = v.filter(Boolean).join(" · ");
+        return `<div class="row"><dt>${esc(f.label.replace(/<[^>]+>/g,''))}</dt><dd>${
+          esc(v) || '<span class="empty">skipped</span>'}</dd></div>`;
+      }).join("");
+    }
+    return `<div class="rsec">
+      <h3>${esc(sec.title)} <button class="jump" data-jump="${i}">edit</button></h3>
+      <dl>${body}</dl>
+    </div>`;
+  }).join("");
+
+  return `<div class="body">
+    <p class="sec-num">Last look</p>
+    <h2>Check it over</h2>
+    <p class="intro">Anything blank is fine — I'll follow up. Hit send when you're happy.</p>
+    <div class="review">${rows}</div>
+  </div>`;
+}
+
+function render(){
+  const sheet = document.getElementById("sheet");
+
+  if (submitted){
+    sheet.innerHTML = `<div class="done">
+      <div class="seal">&amp;</div>
+      <h2>Got it — thank you.</h2>
+      <p>Everything's landed in ${esc(CONFIG.designerName)}'s inbox. You'll hear back within a couple of days, usually with a few follow-up questions and three design directions to choose from.</p>
+      <p>Thought of something after the fact? Just email <a href="mailto:${esc(CONFIG.designerEmail)}">${esc(CONFIG.designerEmail)}</a>.</p>
+    </div>`;
+    document.getElementById("foot").textContent = "";
+    return;
+  }
+
+  const isReview = step >= REVIEW;
+  const missing = missingForConcepts();
+
+  sheet.innerHTML = `
+    <div class="masthead">
+      <p class="studio">${esc(CONFIG.studioName)}</p>
+      <h1>Tell us about your wedding</h1>
+      <p class="sub">About fifteen minutes. Your answers save as you go, so you can stop and come back — just use the same browser.</p>
+    </div>
+    <div class="tally" aria-hidden="true">
+      ${SECTIONS.map((s,i)=>`<i data-on="${(sectionComplete(s)&&sectionTouched(s))?1:0}" data-cur="${i===step?1:0}"></i>`).join("")}
+    </div>
+    <p class="unlock">${
+      missing === 0
+        ? `<b>Everything I need for your design concepts is in.</b> The rest is helpful but not urgent.`
+        : `You're <b>${missing} section${missing===1?"":"s"}</b> from having enough for me to design your concepts.`
+    }</p>
+    ${isReview ? reviewHTML() : sectionHTML(SECTIONS[step], step)}
+    <div class="nav">
+      ${step > 0 ? `<button type="button" class="btn ghost" id="back">Back</button>` : ""}
+      <span class="spacer"></span>
+      <span class="saved" id="savedMsg">Saved</span>
+      <button type="button" class="btn" id="next">${
+        isReview ? "Send it over" : step === REVIEW-1 ? "Review" : "Continue"}</button>
+    </div>`;
+
+  document.getElementById("foot").innerHTML =
+    `Questions? <a href="mailto:${esc(CONFIG.designerEmail)}" style="color:inherit">${esc(CONFIG.designerEmail)}</a>`;
+
+  window.scrollTo({ top:0, behavior: matchMedia("(prefers-reduced-motion:reduce)").matches ? "auto" : "smooth" });
+}
+
+/* ============================================================
+   6. EVENTS
+   ============================================================ */
+function parseName(n){
+  // "sec.field" or "sec.repeatId[i].field"
+  const m = n.match(/^([^.]+)\.(?:([^[]+)\[(\d+)\]\.)?(.+)$/);
+  return { secKey:m[1], repeatId:m[2]||null, idx:m[3]!=null?+m[3]:null, fid:m[4] };
+}
+
+function wire(){
+  const sheet = document.getElementById("sheet");
+
+  sheet.addEventListener("input", e => {
+    const el = e.target;
+    const n = el.dataset.n; if (!n) return;
+    const { secKey, idx, fid } = parseName(n);
+    const sec = SECTIONS.find(s => s.key === secKey); if (!sec) return;
+
+    if (el.dataset.pair != null){
+      const cur = val(sec, fid, idx);
+      const arr = Array.isArray(cur) ? cur.slice() : ["",""];
+      arr[+el.dataset.pair] = el.value;
+      setVal(sec, fid, arr, idx);
+    } else if (el.dataset.ci != null){
+      const cur = val(sec, fid, idx);
+      const arr = Array.isArray(cur) ? cur.slice() : [];
+      arr[+el.dataset.ci] = el.value;
+      setVal(sec, fid, arr, idx);
+    } else {
+      setVal(sec, fid, el.value, idx);
+    }
+    el.closest(".q")?.classList.remove("invalid");
+  });
+
+  sheet.addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    const sec = SECTIONS[step];
+
+    if (b.dataset.chip != null){
+      const ta = sheet.querySelector(`textarea[data-n="${b.dataset.chip}"]`);
+      if (ta){
+        ta.value = (ta.value ? ta.value.replace(/\s*$/,"") + "\n\n" : "") + b.textContent + "\n— ";
+        ta.dispatchEvent(new Event("input", { bubbles:true }));
+        ta.focus(); ta.selectionStart = ta.selectionEnd = ta.value.length;
+      }
+      return;
+    }
+    if (b.dataset.addcolor != null){
+      const { secKey, fid } = parseName(b.dataset.addcolor);
+      const s2 = SECTIONS.find(x => x.key === secKey);
+      const arr = Array.isArray(val(s2, fid)) ? val(s2, fid).slice() : [];
+      arr.push("#386A5F"); setVal(s2, fid, arr); render(); return;
+    }
+    if (b.dataset.add != null){
+      const a = (answers[sec.key] = answers[sec.key] || {});
+      a[sec.repeat.id] = a[sec.repeat.id] || [];
+      a[sec.repeat.id].push({});
+      queueSave(); render(); return;
+    }
+    if (b.dataset.remove != null){
+      const a = answers[sec.key][sec.repeat.id];
+      a.splice(+b.dataset.remove, 1); queueSave(); render(); return;
+    }
+    if (b.dataset.jump != null){ step = +b.dataset.jump; render(); return; }
+    if (b.id === "back"){ step = Math.max(0, step-1); render(); return; }
+    if (b.id === "next"){ advance(); return; }
+  });
+}
+
+function advance(){
+  if (step >= REVIEW){ submit(); return; }
+  const sec = SECTIONS[step];
+
+  // validate visible required fields
+  let firstBad = null;
+  document.querySelectorAll("#sheet .q").forEach(q => {
+    const n = q.dataset.q; const { secKey, idx, fid } = parseName(n);
+    const s2 = SECTIONS.find(s => s.key === secKey); if (!s2) return;
+    const f = (s2.fields.concat(s2.after||[])).find(x => x.id === fid); if (!f || !f.req) return;
+    let v = val(s2, fid, idx);
+    const empty = Array.isArray(v) ? !v.filter(Boolean).length : !String(v).trim();
+    if (empty){ q.classList.add("invalid"); firstBad = firstBad || q; }
+  });
+  if (firstBad){
+    firstBad.scrollIntoView({ block:"center", behavior:"smooth" });
+    firstBad.querySelector("input,textarea")?.focus();
+    return;
+  }
+  step++; render();
+}
+
+/* ============================================================
+   7. SUBMIT
+   ============================================================ */
+function plainText(){
+  const L = [];
+  L.push(`WEDDING SITE INTAKE`);
+  L.push(`Submitted ${new Date().toLocaleString()}`);
+  L.push("");
+  SECTIONS.forEach(sec => {
+    L.push(`── ${sec.title.toUpperCase()} ──`);
+    const strip = s => s.replace(/<[^>]+>/g,"");
+    if (sec.repeat){
+      const arr = (answers[sec.key] || {})[sec.repeat.id] || [];
+      if (!arr.length) L.push("  (none added)");
+      arr.forEach((item, k) => {
+        L.push(`  ${sec.repeat.label} ${k+1}:`);
+        sec.fields.forEach(f => { if (item[f.id]) L.push(`    ${strip(f.label)}: ${item[f.id]}`); });
+      });
+      (sec.after||[]).forEach(f => { const v = val(sec,f.id); if (v) L.push(`  ${strip(f.label)}: ${v}`); });
+    } else {
+      sec.fields.forEach(f => {
+        let v = val(sec, f.id);
+        if (Array.isArray(v)) v = v.filter(Boolean).join(" · ");
+        if (f.follow){
+          const fv = val(sec, f.follow.id);
+          if (v) L.push(`  ${strip(f.label)}: ${v}`);
+          if (fv) L.push(`  ${strip(f.follow.label)}: ${fv}`);
+          return;
+        }
+        if (String(v).trim()) L.push(`  ${strip(f.label)}: ${v}`);
+      });
+    }
+    L.push("");
+  });
+  return L.join("\n");
+}
+
+async function submit(){
+  const btn = document.getElementById("next");
+  btn.disabled = true; btn.textContent = "Sending…";
+
+  const names = (answers.basics && answers.basics.names) || [];
+  const summary = plainText();
+
+  const payload = new FormData();
+  payload.append("_subject", `Wedding intake — ${(names.filter(Boolean).join(" & ")) || "new couple"}`);
+  payload.append("Couple", names.filter(Boolean).join(" & "));
+  payload.append("Wedding date", (answers.basics && answers.basics.date) || "");
+  payload.append("Reply to", (answers.else && answers.else.contact) || "");
+  payload.append("email", (answers.else && answers.else.contact) || "");
+  payload.append("Summary", summary);
+  payload.append("Raw JSON", JSON.stringify(answers, null, 2));
+
+  try {
+    if (CONFIG.formEndpoint.includes("REPLACE_ME")) throw new Error("no endpoint configured");
+    const res = await fetch(CONFIG.formEndpoint, { method:"POST", body:payload, headers:{ Accept:"application/json" } });
+    if (!res.ok) throw new Error("relay rejected the submission");
+    submitted = true; store.clear(); render();
+  } catch (err){
+    btn.disabled = false; btn.textContent = "Try again";
+    const box = document.createElement("div");
+    box.className = "fallback";
+    box.innerHTML = `<b>That didn't send.</b> Nothing's lost — copy everything below and email it to
+      <a href="mailto:${esc(CONFIG.designerEmail)}">${esc(CONFIG.designerEmail)}</a>, and I'll take it from there.
+      <textarea readonly></textarea>`;
+    box.querySelector("textarea").value = summary;
+    document.querySelector("#sheet .review")?.prepend(box);
+    box.scrollIntoView({ block:"center", behavior:"smooth" });
+  }
+}
+
+wire();     // bind once — #sheet persists across renders
+render();
+})();
+</script>
+</body>
+</html>
