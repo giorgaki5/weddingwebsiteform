@@ -1131,9 +1131,9 @@ $("partyList").innerHTML = W.party.map(m => `
     <p class="member__role">${esc(m.role)}</p>
   </div>`).join("");
 
-$("faqList").innerHTML = W.faq.map((f, i) => `
-  <div class="faq__item" data-open="${i === 0}">
-    <h3 class="faq__q"><button type="button" aria-expanded="${i === 0}">${esc(f.q)}<i></i></button></h3>
+$("faqList").innerHTML = W.faq.map(f => `
+  <div class="faq__item" data-open="false">
+    <h3 class="faq__q"><button type="button" aria-expanded="false">${esc(f.q)}<i></i></button></h3>
     <div class="faq__a"><p>${esc(f.a)}</p></div>
   </div>`).join("");
 
@@ -1148,8 +1148,8 @@ const setPanel = (item, open) => {
   btn.setAttribute("aria-expanded", String(open));
   panel.style.maxHeight = open ? panel.scrollHeight + "px" : "0px";
 };
-document.querySelectorAll(".faq__item").forEach((item, i) => {
-  setPanel(item, i === 0);
+document.querySelectorAll(".faq__item").forEach(item => {
+  setPanel(item, false);
   item.querySelector("button").addEventListener("click", () =>
     setPanel(item, item.dataset.open !== "true"));
 });
