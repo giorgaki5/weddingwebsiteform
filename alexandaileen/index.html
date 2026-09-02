@@ -43,13 +43,18 @@ h1 em{font-style:italic;color:var(--gold)}
   margin:0 0 .35rem;line-height:1.1}
 .card__opt{font-size:.6875rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin:0 0 .5rem}
 .card__opt .rec{color:var(--ink)}
+.points{list-style:none;margin:.9rem 0 0;padding:0}
+.points li{position:relative;padding-left:1rem;font-size:.9375rem;line-height:1.6;
+  color:#3a352e;margin-bottom:.2rem}
+.points li::before{content:"";position:absolute;left:0;top:.72em;
+  width:.3rem;height:1px;background:var(--gold)}
+.points li:last-child{color:var(--muted);font-style:italic}
 @media (max-width:680px){
   .card__body{padding:1.5rem 1.35rem}
   .view{display:block;text-align:center;padding:.85rem 1rem}
   .wrap{padding-inline:1.25rem}
 }
-.card p.desc{margin:0 0 1rem;max-width:38rem;color:#3a352e}
-.meta{font-size:.8125rem;color:var(--muted);margin:0}
+.card p.desc{margin:0;max-width:38rem;color:#3a352e}
 .view{display:inline-block;font-family:var(--serif);font-size:1.125rem;white-space:nowrap;
   text-decoration:none;color:var(--ink);border:1px solid var(--rule);
   padding:.7rem 1.6rem;transition:background .35s var(--ease),color .35s,border-color .35s}
@@ -62,7 +67,7 @@ footer{border-top:1px solid var(--rule);padding-top:2rem;margin-top:1.5rem;
 <body>
 <div class="wrap">
   <h1>Alex <em>&amp;</em> Aileen</h1>
-  <p class="sub">Three directions for your wedding website. Identical content in both — only the design changes.</p>
+  <p class="sub">Three directions for your wedding website. Identical content in all concepts — only the design changes.</p>
   <p class="note">Every concept holds identical content and works from the same file. Photography drops in as section backgrounds once your images arrive. Everything else is live: real times, real addresses, working map links. Open each and tell us which feels like your day.</p>
   <p class="note" style="font-size:.8125rem">If a link below does nothing, the three concept files need to sit in the same folder as this page.</p>
 
@@ -140,7 +145,7 @@ const DATA = {
         "id": "ch4",
         "date": "Ever since",
         "title": "The perfect travel buddy",
-        "body": "Both of them count their travels among the most significant parts of the relationship. Travel has a way of exposing every side of a person, and they have found in each other the ideal companion for it — through Mexico, Canada, Puerto Rico, Hawaii and Greece. The relationship has developed slowly over ten years. Some might say at a snail's pace. But the bond between them is strong and everlasting."
+        "body": "Both of them count their travels among the most significant parts of the relationship. Travel has a way of exposing every side of a person, and they have found in each other the ideal companion for it â€” through Mexico, Canada, Puerto Rico, Hawaii and Greece. The relationship has developed slowly over ten years. Some might say at a snail's pace. But the bond between them is strong and everlasting."
       }
     ]
   },
@@ -176,12 +181,12 @@ const DATA = {
       "name": "Ceremony",
       "type": "ceremony",
       "description": "A traditional Greek wedding ceremony.",
-      "culturalNote": "The Greek Orthodox ceremony includes the Stefana, or crowning, a shared cup, and three walks around the altar — the couple's first steps together as husband and wife, and their promise to walk through the whole of life the same way. The three circles also represent the Holy Trinity, and the marriage being blessed under God.",
+      "culturalNote": "The Greek Orthodox ceremony includes the Stefana, or crowning, a shared cup, and three walks around the altar â€” the couple's first steps together as husband and wife, and their promise to walk through the whole of life the same way. The three circles also represent the Holy Trinity, and the marriage being blessed under God.",
       "startsAt": "2026-10-23T15:30:00-05:00",
       "venueId": "v_church",
       "dressCode": {
         "label": "Formal",
-        "notes": "Formal attire. Please dress in something elegant and sophisticated — a suit and tie, or a floor-length or cocktail dress. Shoulders should be covered inside the church."
+        "notes": "Formal attire. Please dress in something elegant and sophisticated â€” a suit and tie, or a floor-length or cocktail dress. Shoulders should be covered inside the church."
       },
       "rsvp": {
         "required": false
@@ -196,7 +201,7 @@ const DATA = {
       "venueId": "v_club",
       "dressCode": {
         "label": "Formal",
-        "notes": "Formal attire. Please dress in something elegant and sophisticated — a suit and tie, or a floor-length or cocktail dress."
+        "notes": "Formal attire. Please dress in something elegant and sophisticated â€” a suit and tie, or a floor-length or cocktail dress."
       },
       "rsvp": {
         "required": false
@@ -212,7 +217,7 @@ const DATA = {
       "venueId": "v_club",
       "dressCode": {
         "label": "Formal",
-        "notes": "Formal attire. Please dress in something elegant and sophisticated — a suit and tie, or a floor-length or cocktail dress."
+        "notes": "Formal attire. Please dress in something elegant and sophisticated â€” a suit and tie, or a floor-length or cocktail dress."
       },
       "rsvp": {
         "required": false,
@@ -376,7 +381,7 @@ const DATA = {
       {
         "id": "d_prospect",
         "name": "Prospect Avenue",
-        "rationale": "The engraved-invitation direction. One centred column, deep vertical rhythm, gold rules. Reads like the paper goods before you scroll.",
+        "rationale": "The engraved-invitation direction. Formal, centred, restrained.",
         "palette": {
           "background": "#FBF6EA",
           "surface": "#FFFDF6",
@@ -391,13 +396,15 @@ const DATA = {
         },
         "layout": "single-page",
         "motifs": [
-          "double-rule"
+          "stationery-card",
+          "double-rule",
+          "gold-spine"
         ]
       },
       {
         "id": "d_editorial",
         "name": "North Shore Editorial",
-        "rationale": "Asymmetric magazine grid with a fixed side rail. Photography carries the page; type stays quiet. Closest to the couple's own photographer reference.",
+        "rationale": "A magazine spread. Photography leads, the type stays quiet.",
         "palette": {
           "background": "#FDFFF8",
           "surface": "#EDE6D6",
@@ -412,13 +419,16 @@ const DATA = {
         },
         "layout": "editorial-grid",
         "motifs": [
-          "full-bleed-black-panel"
+          "sticky-heads",
+          "crowned-panels",
+          "chapter-focus",
+          "matches-reference"
         ]
       },
       {
         "id": "d_refined",
-        "name": "Refined",
-        "rationale": "The editorial spread you liked, crossed with the stationery card and gold spine from Option One. Built strictly on your three colours — every other tone is one of them mixed into another. Navigation is a floating dock rather than a menu.",
+        "name": "Marquee",
+        "rationale": "Scale instead of ornament. Edge to edge, nothing enclosed.",
         "palette": {
           "background": "#FDFFF8",
           "surface": "#F8F5DE",
@@ -427,19 +437,19 @@ const DATA = {
           "muted": "#656663"
         },
         "typography": {
-          "display": "Instrument Serif",
-          "body": "Archivo",
+          "display": "Bodoni Moda",
+          "body": "Cardo",
           "scale": "dramatic"
         },
-        "layout": "editorial-grid",
+        "layout": "full-bleed",
         "motifs": [
-          "stationery-card",
-          "gold-spine",
-          "floating-dock"
+          "monumental-type",
+          "hairline-rules",
+          "ledger-years"
         ]
       }
     ],
-    "selectedDirectionId": "d_refined"
+    "selectedDirectionId": "d_editorial"
   },
   "guestExperience": {
     "personalizedLanding": false,
@@ -744,10 +754,35 @@ const FILES = {
 };
 const LETTERS = ["A","B","C"];
 
+/* Readable phrasing for the layout and motif tokens carried in the JSON.
+   The data stays semantic; the wording lives here. */
+const LAYOUT = {
+  "single-page":    "One centred column",
+  "editorial-grid": "Twelve-column magazine grid",
+  "full-bleed":     "Full width, no containers"
+};
+const MOTIF = {
+  "stationery-card":  "Opens on a card of stationery",
+  "double-rule":      "Double gold rules between sections",
+  "gold-spine":       "Events threaded on a gold line",
+  "sticky-heads":     "Headings hold while content scrolls",
+  "crowned-panels":   "Each event crowned with its hour",
+  "chapter-focus":    "Chapters light up as you reach them",
+  "matches-reference": "Closest to the couple\u2019s own photographer reference",
+  "monumental-type":  "Names and hours set very large",
+  "hairline-rules":   "Hairline rules, no cards",
+  "ledger-years":     "The story reads as a ledger of years"
+};
+
 document.getElementById("cards").innerHTML = DATA.design.directions.map((d, i) => {
   const p = d.palette;
   const band = [p.background, p.surface, p.ink, p.accent, p.muted]
     .map(c => '<div class="sw" style="background:' + c + '"></div>').join("");
+  const points = [LAYOUT[d.layout]]
+    .concat((d.motifs || []).map(m => MOTIF[m]))
+    .filter(Boolean)
+    .concat(d.typography.display + " and " + d.typography.body)
+    .map(t => "<li>" + esc(t) + "</li>").join("");
   return `
     <article class="card" style="--i:${i}">
       <div class="card__band">${band}</div>
@@ -756,7 +791,7 @@ document.getElementById("cards").innerHTML = DATA.design.directions.map((d, i) =
           <p class="card__opt">Concept ${LETTERS[i]}${d.id === DATA.design.selectedDirectionId ? ' &middot; <span class="rec">our pick</span>' : ""}</p>
           <h2>${esc(d.name)}</h2>
           <p class="desc">${esc(d.rationale)}</p>
-          <p class="meta">${esc(d.typography.display)} and ${esc(d.typography.body)}</p>
+          <ul class="points">${points}</ul>
         </div>
         <a class="view" href="${FILES[d.id]}">View this version</a>
       </div>

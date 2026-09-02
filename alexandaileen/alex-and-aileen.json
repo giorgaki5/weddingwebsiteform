@@ -294,7 +294,7 @@
       {
         "id": "d_prospect",
         "name": "Prospect Avenue",
-        "rationale": "The engraved-invitation direction. One centred column, deep vertical rhythm, gold rules. Reads like the paper goods before you scroll.",
+        "rationale": "The engraved-invitation direction. Formal, centred, restrained.",
         "palette": {
           "background": "#FBF6EA",
           "surface": "#FFFDF6",
@@ -309,13 +309,15 @@
         },
         "layout": "single-page",
         "motifs": [
-          "double-rule"
+          "stationery-card",
+          "double-rule",
+          "gold-spine"
         ]
       },
       {
         "id": "d_editorial",
         "name": "North Shore Editorial",
-        "rationale": "Asymmetric magazine grid with a fixed side rail. Photography carries the page; type stays quiet. Closest to the couple's own photographer reference.",
+        "rationale": "A magazine spread. Photography leads, the type stays quiet.",
         "palette": {
           "background": "#FDFFF8",
           "surface": "#EDE6D6",
@@ -330,13 +332,16 @@
         },
         "layout": "editorial-grid",
         "motifs": [
-          "full-bleed-black-panel"
+          "sticky-heads",
+          "crowned-panels",
+          "chapter-focus",
+          "matches-reference"
         ]
       },
       {
         "id": "d_refined",
-        "name": "Refined",
-        "rationale": "The editorial spread you liked, crossed with the stationery card and gold spine from Option One. Built strictly on your three colours â€” every other tone is one of them mixed into another. Navigation is a floating dock rather than a menu.",
+        "name": "Marquee",
+        "rationale": "Scale instead of ornament. Edge to edge, nothing enclosed.",
         "palette": {
           "background": "#FDFFF8",
           "surface": "#F8F5DE",
@@ -345,19 +350,19 @@
           "muted": "#656663"
         },
         "typography": {
-          "display": "Instrument Serif",
-          "body": "Archivo",
+          "display": "Bodoni Moda",
+          "body": "Cardo",
           "scale": "dramatic"
         },
-        "layout": "editorial-grid",
+        "layout": "full-bleed",
         "motifs": [
-          "stationery-card",
-          "gold-spine",
-          "floating-dock"
+          "monumental-type",
+          "hairline-rules",
+          "ledger-years"
         ]
       }
     ],
-    "selectedDirectionId": "d_refined"
+    "selectedDirectionId": "d_editorial"
   },
   "guestExperience": {
     "personalizedLanding": false,
