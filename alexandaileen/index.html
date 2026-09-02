@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alex &amp; Aileen — Three Directions</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Archivo:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ground:#FBF6EA;--paper:#F2EADA;--ink:#000;--gold:#D19D01;--muted:#7C7263;
+  --hair:rgba(0,0,0,.09);--rule:rgba(0,0,0,.16);
+  --serif:"EB Garamond",Georgia,serif;--sans:"Archivo",-apple-system,sans-serif;
+  --ease:cubic-bezier(.16,.84,.44,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;overflow-x:hidden;background:var(--ground);color:var(--ink);font-family:var(--sans);
+  font-size:1rem;line-height:1.7;-webkit-font-smoothing:antialiased}
+:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+.wrap{max-width:62rem;margin-inline:auto;padding:clamp(3rem,9vw,6.5rem) clamp(1.25rem,5vw,3rem)}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.25rem,6vw,3.5rem);line-height:1.05;margin:0 0 .75rem}
+h1 em{font-style:italic;color:var(--gold)}
+.sub{font-family:var(--serif);font-style:italic;font-size:1.25rem;color:var(--muted);margin:0 0 1rem;max-width:44rem}
+.note{font-size:.9375rem;color:var(--muted);margin:0 0 3.5rem;max-width:44rem}
+
+.card{
+  display:grid;grid-template-columns:1fr;
+  border:1px solid var(--rule);background:var(--paper);
+  margin-bottom:clamp(1.25rem,3vw,2rem);overflow:hidden;
+  opacity:0;transform:translateY(20px);
+  transition:opacity .9s var(--ease),transform .9s var(--ease),border-color .4s,box-shadow .4s;
+}
+.card.is-in{opacity:1;transform:none}
+.card:hover{border-color:rgba(209,157,1,.5);box-shadow:0 20px 44px -30px rgba(0,0,0,.35)}
+.card__band{display:flex;gap:0;height:.5rem}
+.sw{flex:1}
+.card__body{padding:clamp(1.75rem,4vw,2.75rem);display:grid;
+  grid-template-columns:1fr auto;gap:1.5rem 2rem;align-items:end}
+@media (max-width:680px){.card__body{grid-template-columns:1fr}}
+.card h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.75rem,4vw,2.5rem);
+  margin:0 0 .35rem;line-height:1.1}
+.card__opt{font-size:.6875rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin:0 0 .5rem}
+.card__opt .rec{color:var(--ink)}
+@media (max-width:680px){
+  .card__body{padding:1.5rem 1.35rem}
+  .view{display:block;text-align:center;padding:.85rem 1rem}
+  .wrap{padding-inline:1.25rem}
+}
+.card p.desc{margin:0 0 1rem;max-width:38rem;color:#3a352e}
+.meta{font-size:.8125rem;color:var(--muted);margin:0}
+.view{display:inline-block;font-family:var(--serif);font-size:1.125rem;white-space:nowrap;
+  text-decoration:none;color:var(--ink);border:1px solid var(--rule);
+  padding:.7rem 1.6rem;transition:background .35s var(--ease),color .35s,border-color .35s}
+.view:hover{background:var(--ink);color:var(--ground);border-color:var(--ink)}
+footer{border-top:1px solid var(--rule);padding-top:2rem;margin-top:1.5rem;
+  font-size:.8125rem;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){.card{opacity:1!important;transform:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Alex <em>&amp;</em> Aileen</h1>
+  <p class="sub">Three directions for your wedding website. Identical content in both — only the design changes.</p>
+  <p class="note">Every concept holds identical content and works from the same file. Photography drops in as section backgrounds once your images arrive. Everything else is live: real times, real addresses, working map links. Open each and tell us which feels like your day.</p>
+  <p class="note" style="font-size:.8125rem">If a link below does nothing, the three concept files need to sit in the same folder as this page.</p>
+
+  <div id="cards"></div>
+
+  <footer><p id="foot"></p></footer>
+</div>
+
+<script>
+/* Content inlined so this file renders standalone. Generated from alex-and-aileen.json. */
+/* =====================================================================
+   site-data.js — shared by all three concepts.
+   DATA is a verbatim instance of wedding.schema.json 1.0.0.
+   The adapter below derives display values; it never invents content.
+   Regenerate this file from alex-and-aileen.json — do not hand-edit DATA.
+   ===================================================================== */
+
+const DATA = {
+  "schemaVersion": "1.0.0",
+  "wedding": {
+    "id": "wed_leventis_everitt",
+    "slug": "alex-and-aileen",
+    "customDomain": "alexandaileen.com",
+    "primaryDate": "2026-10-23",
+    "timezone": "America/Chicago",
+    "locales": [
+      "en"
+    ],
+    "visibility": "public",
+    "status": "draft"
+  },
+  "couple": {
+    "displayName": "Alex & Aileen",
+    "partners": [
+      {
+        "id": "p1",
+        "firstName": "Alexander",
+        "lastName": "Leventis",
+        "preferredName": "Alex",
+        "bio": "A tenacious entrepreneur."
+      },
+      {
+        "id": "p2",
+        "firstName": "Aileen",
+        "lastName": "Everitt",
+        "preferredName": "Aileen",
+        "bio": "A chocoholic."
+      }
+    ]
+  },
+  "story": {
+    "headline": "A train, a platform, ten years",
+    "chapters": [
+      {
+        "id": "ch1",
+        "date": "Summer 2016",
+        "location": "Libertyville, IL",
+        "title": "The 6:30 to Chicago",
+        "body": "Alex and Aileen had both graduated college, were living at home with their parents, and were commuting into Chicago on the Milwaukee North line. Every morning they hauled themselves to the Libertyville station at the ungodly hour of 6:30. And while they stood on the platform, half asleep, waiting for the train to roll in, they noticed one another. The tall and handsome man. The beautiful blonde."
+      },
+      {
+        "id": "ch2",
+        "date": "Not long after",
+        "location": "West Loop, Chicago",
+        "title": "Three hours at Haymarket",
+        "body": "They met at Haymarket Brewery in the West Loop for their first date, and bonded over a shared hometown and a shared high school, despite never having known each other back then. The date turned into three hours of talking, and the night ended with a first kiss."
+      },
+      {
+        "id": "ch3",
+        "date": "2020",
+        "title": "A suitcase packed for two weeks",
+        "body": "Aileen was living with roommates, one of them an ER nurse. When the lockdown began, Alex drove over and picked her up with a suitcase packed for two weeks. Essentially, he saved her life. They have lived together ever since."
+      },
+      {
+        "id": "ch4",
+        "date": "Ever since",
+        "title": "The perfect travel buddy",
+        "body": "Both of them count their travels among the most significant parts of the relationship. Travel has a way of exposing every side of a person, and they have found in each other the ideal companion for it — through Mexico, Canada, Puerto Rico, Hawaii and Greece. The relationship has developed slowly over ten years. Some might say at a snail's pace. But the bond between them is strong and everlasting."
+      }
+    ]
+  },
+  "venues": [
+    {
+      "id": "v_church",
+      "name": "Saints Peter and Paul Greek Orthodox Church",
+      "address": {
+        "line1": "1401 Wagner Rd",
+        "city": "Glenview",
+        "region": "IL",
+        "postalCode": "60025",
+        "country": "US"
+      },
+      "parkingNotes": "Parking is available on site. The lot fills quickly, so please plan accordingly."
+    },
+    {
+      "id": "v_club",
+      "name": "Park Ridge Country Club",
+      "address": {
+        "line1": "636 N Prospect Ave",
+        "city": "Park Ridge",
+        "region": "IL",
+        "postalCode": "60068",
+        "country": "US"
+      },
+      "parkingNotes": "Parking is available on site."
+    }
+  ],
+  "events": [
+    {
+      "id": "e_ceremony",
+      "name": "Ceremony",
+      "type": "ceremony",
+      "description": "A traditional Greek wedding ceremony.",
+      "culturalNote": "The Greek Orthodox ceremony includes the Stefana, or crowning, a shared cup, and three walks around the altar — the couple's first steps together as husband and wife, and their promise to walk through the whole of life the same way. The three circles also represent the Holy Trinity, and the marriage being blessed under God.",
+      "startsAt": "2026-10-23T15:30:00-05:00",
+      "venueId": "v_church",
+      "dressCode": {
+        "label": "Formal",
+        "notes": "Formal attire. Please dress in something elegant and sophisticated — a suit and tie, or a floor-length or cocktail dress. Shoulders should be covered inside the church."
+      },
+      "rsvp": {
+        "required": false
+      }
+    },
+    {
+      "id": "e_cocktails",
+      "name": "Cocktail Hour",
+      "type": "reception",
+      "description": "Drinks and passed hors d'oeuvres. Weather permitting, this will be held on the terrace at the back of the building, overlooking the club grounds.",
+      "startsAt": "2026-10-23T17:00:00-05:00",
+      "venueId": "v_club",
+      "dressCode": {
+        "label": "Formal",
+        "notes": "Formal attire. Please dress in something elegant and sophisticated — a suit and tie, or a floor-length or cocktail dress."
+      },
+      "rsvp": {
+        "required": false
+      }
+    },
+    {
+      "id": "e_reception",
+      "name": "Reception",
+      "type": "reception",
+      "description": "A plated dinner, and dancing to follow.",
+      "startsAt": "2026-10-23T18:00:00-05:00",
+      "endsAt": "2026-10-24T00:00:00-05:00",
+      "venueId": "v_club",
+      "dressCode": {
+        "label": "Formal",
+        "notes": "Formal attire. Please dress in something elegant and sophisticated — a suit and tie, or a floor-length or cocktail dress."
+      },
+      "rsvp": {
+        "required": false,
+        "mealService": true,
+        "childrenWelcome": false
+      }
+    }
+  ],
+  "party": [
+    {
+      "id": "wp01",
+      "firstName": "Penelope",
+      "role": "Koumbara",
+      "order": 1,
+      "lastName": "Kokkinias",
+      "side": "partner1"
+    },
+    {
+      "id": "wp02",
+      "firstName": "Kelli",
+      "role": "Matron of Honor",
+      "order": 2,
+      "lastName": "Zorn",
+      "side": "partner2"
+    },
+    {
+      "id": "wp03",
+      "firstName": "Tori",
+      "role": "Maid of Honor",
+      "order": 3,
+      "lastName": "Johnson",
+      "side": "partner2"
+    },
+    {
+      "id": "wp04",
+      "firstName": "Dean",
+      "role": "Best Man",
+      "order": 4,
+      "lastName": "Leventis",
+      "side": "partner1"
+    },
+    {
+      "id": "wp05",
+      "firstName": "Julia",
+      "role": "Bridesmaid",
+      "order": 5,
+      "lastName": "Livesey",
+      "side": "partner2"
+    },
+    {
+      "id": "wp06",
+      "firstName": "Paige",
+      "role": "Bridesmaid",
+      "order": 6,
+      "lastName": "Leventis",
+      "side": "partner2"
+    },
+    {
+      "id": "wp07",
+      "firstName": "Sam",
+      "role": "Groomsman",
+      "order": 7,
+      "lastName": "Papas",
+      "side": "partner1"
+    },
+    {
+      "id": "wp08",
+      "firstName": "Nicolas",
+      "role": "Groomsman",
+      "order": 8,
+      "lastName": "Tasiopoulos",
+      "side": "partner1"
+    },
+    {
+      "id": "wp09",
+      "firstName": "Dimitri",
+      "role": "Groomsman",
+      "order": 9,
+      "lastName": "Dallas",
+      "side": "partner1"
+    },
+    {
+      "id": "wp10",
+      "firstName": "Dino",
+      "role": "Groomsman",
+      "order": 10,
+      "lastName": "Melitas",
+      "side": "partner1"
+    },
+    {
+      "id": "wp11",
+      "firstName": "George",
+      "role": "Groomsman",
+      "order": 11,
+      "lastName": "Kokkinias",
+      "side": "partner1"
+    },
+    {
+      "id": "wp12",
+      "firstName": "Zoe,",
+      "role": "Flower girls",
+      "order": 12,
+      "lastName": "Lia and Selene Dallas"
+    },
+    {
+      "id": "wp13",
+      "firstName": "Dimitri",
+      "role": "Ring Bearers",
+      "order": 13,
+      "lastName": "Kokkinias, Owen Itzi, Christian and Teddy Leventis"
+    }
+  ],
+  "faq": [
+    {
+      "id": "f1",
+      "question": "Can I bring kids?",
+      "answer": "We love all the kiddos but we have made the difficult decision to have our wedding be adults-only except for the bridal party."
+    },
+    {
+      "id": "f2",
+      "question": "Can I bring a date?",
+      "answer": "Your invitation will indicate if you can bring guest(s)."
+    },
+    {
+      "id": "f3",
+      "question": "Indoors or outdoors?",
+      "answer": "The ceremony and reception will be held indoors. Weather permitting, the cocktail hour may be held on an outdoor terrace. Please prepare accordingly."
+    },
+    {
+      "id": "f4",
+      "question": "Vegetarian / vegan / halal / kosher options?",
+      "answer": "The venue is very accommodating of dietary restrictions. Please note what you need on your reply card when you return your invitation.",
+      "category": "logistics"
+    },
+    {
+      "id": "f5",
+      "question": "What time does it end?",
+      "answer": "Dancing will conclude at midnight."
+    },
+    {
+      "id": "f6",
+      "question": "Is there parking?",
+      "answer": "There is parking on-site at both the church and country club. Lots may fill up fast so please plan accordingly."
+    }
+  ],
+  "media": [],
+  "design": {
+    "vibeWords": [
+      "timeless",
+      "elegant",
+      "warm",
+      "north-shore",
+      "editorial"
+    ],
+    "avoid": [
+      "over the top",
+      "ornate",
+      "too detailed"
+    ],
+    "directions": [
+      {
+        "id": "d_prospect",
+        "name": "Prospect Avenue",
+        "rationale": "The engraved-invitation direction. One centred column, deep vertical rhythm, gold rules. Reads like the paper goods before you scroll.",
+        "palette": {
+          "background": "#FBF6EA",
+          "surface": "#FFFDF6",
+          "ink": "#000000",
+          "accent": "#D19D01",
+          "muted": "#8A7F6A"
+        },
+        "typography": {
+          "display": "Italiana",
+          "body": "EB Garamond",
+          "scale": "standard"
+        },
+        "layout": "single-page",
+        "motifs": [
+          "double-rule"
+        ]
+      },
+      {
+        "id": "d_editorial",
+        "name": "North Shore Editorial",
+        "rationale": "Asymmetric magazine grid with a fixed side rail. Photography carries the page; type stays quiet. Closest to the couple's own photographer reference.",
+        "palette": {
+          "background": "#FDFFF8",
+          "surface": "#EDE6D6",
+          "ink": "#000000",
+          "accent": "#D19D01",
+          "muted": "#6E675C"
+        },
+        "typography": {
+          "display": "Instrument Serif",
+          "body": "Archivo",
+          "scale": "dramatic"
+        },
+        "layout": "editorial-grid",
+        "motifs": [
+          "full-bleed-black-panel"
+        ]
+      },
+      {
+        "id": "d_refined",
+        "name": "Refined",
+        "rationale": "The editorial spread you liked, crossed with the stationery card and gold spine from Option One. Built strictly on your three colours — every other tone is one of them mixed into another. Navigation is a floating dock rather than a menu.",
+        "palette": {
+          "background": "#FDFFF8",
+          "surface": "#F8F5DE",
+          "ink": "#000000",
+          "accent": "#D19D01",
+          "muted": "#656663"
+        },
+        "typography": {
+          "display": "Instrument Serif",
+          "body": "Archivo",
+          "scale": "dramatic"
+        },
+        "layout": "editorial-grid",
+        "motifs": [
+          "stationery-card",
+          "gold-spine",
+          "floating-dock"
+        ]
+      }
+    ],
+    "selectedDirectionId": "d_refined"
+  },
+  "guestExperience": {
+    "personalizedLanding": false,
+    "guestPhotoUpload": {
+      "enabled": false
+    },
+    "guestbook": false,
+    "liveSongRequests": false
+  }
+};
+
+/* ---------- derivation helpers ---------- */
+const ONES = ["twelve","one","two","three","four","five","six","seven","eight","nine","ten","eleven"];
+const ORD  = ["","first","second","third","fourth","fifth","sixth","seventh","eighth","ninth","tenth",
+              "eleventh","twelfth","thirteenth","fourteenth","fifteenth","sixteenth","seventeenth",
+              "eighteenth","nineteenth","twentieth","twenty-first","twenty-second","twenty-third",
+              "twenty-fourth","twenty-fifth","twenty-sixth","twenty-seventh","twenty-eighth",
+              "twenty-ninth","thirtieth","thirty-first"];
+const DAYS   = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+const MONTHS = ["January","February","March","April","May","June","July","August","September",
+                "October","November","December"];
+
+const _p = iso => {
+  const m = iso.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
+  return { y:+m[1], mo:+m[2], d:+m[3], h:+m[4], min:+m[5] };
+};
+const _dow = (y,mo,d) => DAYS[new Date(Date.UTC(y, mo-1, d)).getUTCDay()];
+const meridiemOf = h => h < 12 ? "in the morning" : (h < 17 ? "in the afternoon" : "in the evening");
+const clockOf = p => ((p.h % 12) || 12) + ":" + String(p.min).padStart(2,"0");
+const spokenTime = p =>
+  (p.min === 0 ? ONES[p.h % 12] + " o'clock" : "half past " + ONES[p.h % 12]) + " " + meridiemOf(p.h);
+const formalWhen = iso => {
+  const p = _p(iso);
+  return _dow(p.y,p.mo,p.d) + ", the " + ORD[p.d] + " of " + MONTHS[p.mo-1] + " at " + spokenTime(p);
+};
+
+const venueById = Object.fromEntries(DATA.venues.map(v => [v.id, v]));
+const addrOf = v => v.address.line1 + ", " + v.address.city + ", " +
+                    v.address.region + " " + v.address.postalCode;
+const mapsUrl = a => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(a);
+
+const _wd = (() => {
+  const [y, mo, d] = DATA.wedding.primaryDate.split("-").map(Number);
+  return {
+    dow: _dow(y,mo,d),
+    long: _dow(y,mo,d) + ", the " + ORD[d] + " of " + MONTHS[mo-1] + ", two thousand twenty-six",
+    medium: _dow(y,mo,d) + ", " + MONTHS[mo-1] + " " + d + ", " + y,
+    short: MONTHS[mo-1] + " " + d + ", " + y,
+    numeric: String(mo).padStart(2,"0") + "." + String(d).padStart(2,"0") + "." + y,
+    monthDay: MONTHS[mo-1] + " " + ORD[d]
+  };
+})();
+
+const CEREMONY = DATA.events.find(e => e.type === "ceremony");
+
+/* ---------- view model ---------- */
+const W = {
+  names: DATA.couple.partners.map(p => p.preferredName || p.firstName),
+  display: DATA.couple.displayName,
+  legalNames: DATA.couple.partners.map(p => [p.firstName, p.lastName].filter(Boolean).join(" ")),
+  traits: DATA.couple.partners
+    .filter(p => p.bio)
+    .map(p => ({ who: p.preferredName || p.firstName, bio: p.bio })),
+
+  date: _wd,
+  locality: [...new Set(DATA.venues.map(v => v.address.city))].join(" & ") +
+            ", " + DATA.venues[0].address.region,
+  contactEmail: "Aileen.everitt15@gmail.com",
+
+  storyHeadline: DATA.story.headline,
+  chapters: DATA.story.chapters,
+
+  events: DATA.events.map(e => {
+    const v = venueById[e.venueId];
+    const p = _p(e.startsAt);
+    return {
+      id: e.id,
+      name: e.name,
+      clock: clockOf(p),
+      meridiem: meridiemOf(p.h),
+      formal: formalWhen(e.startsAt),
+      venue: v.name,
+      address: addrOf(v),
+      maps: mapsUrl(v.name + ", " + addrOf(v)),
+      about: e.description,
+      tradition: e.culturalNote || null,
+      note: (v.parkingNotes || "") +
+            (e.id === "e_ceremony" ? " Shoulders covered in church, please." : "")
+    };
+  }),
+
+  attire: CEREMONY.dressCode.notes,
+
+  party: DATA.party.map(m => ({
+    name: [m.firstName, m.lastName].filter(Boolean).join(" "),
+    role: m.role,
+    honored: m.order <= 4
+  })),
+
+  faq: DATA.faq.map(f => ({ q: f.question, a: f.answer })),
+
+  /* Photography not yet supplied. Each concept renders these as an
+     intentional plate so the page never looks unfinished. */
+  plates: {
+    hero:   { src: null, note: "Hero photograph — landscape, the two of them together." },
+    story:  { src: null, note: "Portrait — a favourite candid." },
+    detail: { src: null, note: "Detail — rings, flowers, or the venue." },
+    venue:  { src: null, note: "Park Ridge Country Club, exterior or terrace." }
+  }
+};
+
+const esc = s => String(s).replace(/[&<>"]/g, c =>
+  ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ===================================================================
+   PHOTOGRAPHY
+   Photos are used as background layers behind whole sections at low
+   opacity, not as inline boxes. To switch them on, paste a URL into
+   PHOTOS at the top of the concept file — nothing else changes.
+   Mirrors media[] in wedding.schema.json.
+   =================================================================== */
+function scene(key, opacity) {
+  const src = (typeof PHOTOS !== "undefined" && PHOTOS[key]) || null;
+  return '<div class="scene' + (src ? "" : " scene--empty") + '" aria-hidden="true">' +
+         (src ? '<div class="scene__img" style="background-image:url(&quot;' +
+                encodeURI(src).replace(/"/g, "%22") +
+                '&quot;);opacity:' + (opacity || .14) + '"></div>' : "") +
+         '<div class="scene__veil"></div></div>';
+}
+
+function paintScenes() {
+  document.querySelectorAll("[data-scene]").forEach(host => {
+    const key = host.dataset.scene;
+    const op = parseFloat(host.dataset.sceneOpacity || ".14");
+    host.insertAdjacentHTML("afterbegin", scene(key, op));
+  });
+}
+
+/* ---------- shared runtime ---------- */
+
+const REDUCED = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function daysUntil() {
+  const [y, m, d] = DATA.wedding.primaryDate.split("-").map(Number);
+  const target = new Date(y, m - 1, d);
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  return Math.round((target - today) / 86400000);
+}
+
+/* Scroll reveals + progress hairline + gentle parallax on image plates. */
+function initMotion() {
+  const bar = document.getElementById("progress");
+  if (bar) {
+    let ticking = false;
+    const draw = () => {
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.transform = "scaleX(" + (h > 0 ? window.scrollY / h : 0) + ")";
+      ticking = false;
+    };
+    addEventListener("scroll", () => {
+      if (!ticking) { ticking = true; requestAnimationFrame(draw); }
+    }, { passive: true });
+    draw();
+  }
+
+  const targets = document.querySelectorAll("[data-reveal], .divider, .timeline");
+  if (REDUCED || !("IntersectionObserver" in window)) {
+    targets.forEach(t => t.classList.add("is-in"));
+    return;
+  }
+  const io = new IntersectionObserver((entries, obs) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add("is-in");
+      obs.unobserve(e.target);
+    });
+  }, { rootMargin: "0px 0px -12% 0px", threshold: 0.12 });
+  targets.forEach(t => io.observe(t));
+
+  /* Parallax: background layers drift slower than the page. */
+  const plates = [...document.querySelectorAll(".scene__img")];
+  if (!plates.length) return;
+  let raf = false;
+  const shift = () => {
+    plates.forEach(p => {
+      const r = p.getBoundingClientRect();
+      if (r.bottom < -300 || r.top > innerHeight + 300) return;
+      const mid = (r.top + r.height / 2 - innerHeight / 2) / innerHeight;
+      p.style.transform = "scale(1.12) translateY(" + (mid * -40).toFixed(1) + "px)";
+    });
+    raf = false;
+  };
+  addEventListener("scroll", () => {
+    if (!raf) { raf = true; requestAnimationFrame(shift); }
+  }, { passive: true });
+  shift();
+}
+
+/* ===================================================================
+   DOCK — the navigation used by every concept. A floating segmented
+   control at the bottom of the viewport. Styles are injected here so
+   all three concepts stay identical; each file supplies the colours
+   through the --dock-* variables in its own :root.
+   =================================================================== */
+const DOCK_CSS = `
+.dock{position:fixed;left:50%;bottom:max(env(safe-area-inset-bottom),.85rem);z-index:100;
+  transform:translateX(-50%) translateY(180%);transition:transform .8s var(--ease,ease);
+  background:var(--dock-bg,rgba(255,255,255,.85));
+  -webkit-backdrop-filter:blur(18px) saturate(1.4);backdrop-filter:blur(18px) saturate(1.4);
+  border:1px solid var(--dock-rule,rgba(0,0,0,.15));border-radius:999px;
+  box-shadow:0 18px 44px -26px rgba(0,0,0,.5);padding:.3rem;
+  max-width:calc(100vw - 1.5rem);}
+.dock.is-up{transform:translateX(-50%) translateY(0)}
+.dock__scroll{overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-ms-overflow-style:none;
+  border-radius:999px;-webkit-overflow-scrolling:touch}
+.dock__scroll::-webkit-scrollbar{display:none}
+.dock__inner{position:relative;display:flex;align-items:center;gap:.1rem;width:max-content;margin:0 auto}
+.dock__marker{position:absolute;top:0;bottom:0;left:0;width:0;border-radius:999px;
+  background:var(--dock-active-bg,#000);z-index:0;opacity:0;
+  transition:transform .55s var(--ease,ease),width .55s var(--ease,ease),opacity .35s}
+.dock.has-marker .dock__marker{opacity:1}
+.dock a{position:relative;z-index:1;display:flex;align-items:center;text-decoration:none;
+  min-height:2.75rem;padding:0 clamp(.85rem,3vw,1.15rem);border-radius:999px;
+  font-family:inherit;font-size:.8125rem;letter-spacing:.01em;white-space:nowrap;
+  color:var(--dock-muted,#666);transition:color .4s var(--ease,ease)}
+.dock a:hover{color:var(--dock-ink,#000)}
+.dock a[aria-current="true"]{color:var(--dock-active-ink,#fff)}
+.dock__rail{position:absolute;left:1rem;right:1rem;bottom:-1px;height:1px;
+  background:var(--dock-accent,#D19D01);transform:scaleX(0);transform-origin:0 50%;
+  transition:transform .12s linear;border-radius:1px}
+@media (max-width:480px){
+  .dock{max-width:calc(100vw - 1rem);padding:.25rem}
+  .dock a{font-size:.75rem;padding:0 .8rem}
+}
+`;
+
+function initDock(sectionIds) {
+  const style = document.createElement("style");
+  style.textContent = DOCK_CSS;
+  document.head.appendChild(style);
+
+  const bar = document.getElementById("dock");
+  if (!bar) return;
+  const marker = bar.querySelector(".dock__marker");
+  const rail   = bar.querySelector(".dock__rail");
+  const scroll = bar.querySelector(".dock__scroll");
+  const links  = [...bar.querySelectorAll("a[data-target]")];
+
+  const moveTo = a => {
+    if (!a) return;
+    marker.style.width = a.offsetWidth + "px";
+    marker.style.transform = "translateX(" + a.offsetLeft + "px)";
+    bar.classList.add("has-marker");
+    if (scroll && scroll.scrollWidth > scroll.clientWidth) {
+      scroll.scrollTo({
+        left: a.offsetLeft - (scroll.clientWidth - a.offsetWidth) / 2,
+        behavior: REDUCED ? "auto" : "smooth"
+      });
+    }
+  };
+  const activate = id => {
+    const a = links.find(x => x.dataset.target === id);
+    if (!a || a.getAttribute("aria-current") === "true") return;
+    links.forEach(x => x.removeAttribute("aria-current"));
+    a.setAttribute("aria-current", "true");
+    moveTo(a);
+  };
+
+  let ticking = false;
+  const onScroll = () => {
+    const y = window.scrollY;
+    bar.classList.toggle("is-up", y > window.innerHeight * 0.4);
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    if (rail) rail.style.transform = "scaleX(" + (h > 0 ? Math.min(y / h, 1) : 0) + ")";
+    ticking = false;
+  };
+  addEventListener("scroll", () => {
+    if (!ticking) { ticking = true; requestAnimationFrame(onScroll); }
+  }, { passive: true });
+  addEventListener("resize", () =>
+    moveTo(links.find(x => x.getAttribute("aria-current") === "true")));
+  onScroll();
+
+  if (!("IntersectionObserver" in window)) { activate(sectionIds[0]); return; }
+  const spy = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) activate(e.target.id); });
+  }, { rootMargin: "-42% 0px -48% 0px" });
+  sectionIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) spy.observe(el);
+  });
+  activate(sectionIds[0]);
+}
+
+</script>
+<script>
+const FILES = {
+  d_prospect:  "concept-a-prospect-avenue.html",
+  d_editorial: "concept-b-editorial.html",
+  d_refined:   "concept-c-refined.html"
+};
+const LETTERS = ["A","B","C"];
+
+document.getElementById("cards").innerHTML = DATA.design.directions.map((d, i) => {
+  const p = d.palette;
+  const band = [p.background, p.surface, p.ink, p.accent, p.muted]
+    .map(c => '<div class="sw" style="background:' + c + '"></div>').join("");
+  return `
+    <article class="card" style="--i:${i}">
+      <div class="card__band">${band}</div>
+      <div class="card__body">
+        <div>
+          <p class="card__opt">Concept ${LETTERS[i]}${d.id === DATA.design.selectedDirectionId ? ' &middot; <span class="rec">our pick</span>' : ""}</p>
+          <h2>${esc(d.name)}</h2>
+          <p class="desc">${esc(d.rationale)}</p>
+          <p class="meta">${esc(d.typography.display)} and ${esc(d.typography.body)}</p>
+        </div>
+        <a class="view" href="${FILES[d.id]}">View this version</a>
+      </div>
+    </article>`;
+}).join("");
+
+document.getElementById("foot").textContent =
+  W.date.medium + "  ·  " + W.locality + "  ·  " + daysUntil() + " days to go";
+
+const cards = document.querySelectorAll(".card");
+if (REDUCED || !("IntersectionObserver" in window)) {
+  cards.forEach(c => c.classList.add("is-in"));
+} else {
+  const io = new IntersectionObserver((es, o) => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add("is-in"); o.unobserve(e.target); }
+  }), { threshold: .15 });
+  cards.forEach((c, i) => { c.style.transitionDelay = (i * 120) + "ms"; io.observe(c); });
+}
+</script>
+</body>
+</html>
