@@ -13,13 +13,13 @@
     "status": "draft"
   },
   "couple": {
-    "displayName": "Alex & Aileen",
+    "displayName": "Alexander & Aileen",
     "partners": [
       {
         "id": "p1",
         "firstName": "Alexander",
         "lastName": "Leventis",
-        "preferredName": "Alex",
+        "preferredName": "Alexander",
         "bio": "A tenacious entrepreneur."
       },
       {
@@ -39,7 +39,7 @@
         "date": "Summer 2016",
         "location": "Libertyville, IL",
         "title": "The 6:30 to Chicago",
-        "body": "Alex and Aileen had both graduated college, were living at home with their parents, and were commuting into Chicago on the Milwaukee North line. Every morning they hauled themselves to the Libertyville station at the ungodly hour of 6:30. And while they stood on the platform, half asleep, waiting for the train to roll in, they noticed one another. The tall and handsome man. The beautiful blonde."
+        "body": "Alexander and Aileen had both graduated college, were living at home with their parents, and were commuting into Chicago on the Milwaukee North line. Every morning they hauled themselves to the Libertyville station at the ungodly hour of 6:30. And while they stood on the platform, half asleep, waiting for the train to roll in, they noticed one another. The tall and handsome man. The beautiful blonde."
       },
       {
         "id": "ch2",
@@ -52,13 +52,13 @@
         "id": "ch3",
         "date": "2020",
         "title": "A suitcase packed for two weeks",
-        "body": "Aileen was living with roommates, one of them an ER nurse. When the lockdown began, Alex drove over and picked her up with a suitcase packed for two weeks. Essentially, he saved her life. They have lived together ever since."
+        "body": "Aileen was living with roommates, one of them an ER nurse. When the lockdown began, Alexander drove over and picked her up with a suitcase packed for two weeks. Essentially, he saved her life. They have lived together ever since."
       },
       {
         "id": "ch4",
         "date": "Ever since",
         "title": "The perfect travel buddy",
-        "body": "Both of them count their travels among the most significant parts of the relationship. Travel has a way of exposing every side of a person, and they have found in each other the ideal companion for it â€” through Mexico, Canada, Puerto Rico, Hawaii and Greece. The relationship has developed slowly over ten years. Some might say at a snail's pace. But the bond between them is strong and everlasting."
+        "body": "Both of them count their travels among the most significant parts of the relationship. Travel has a way of exposing every side of a person, and they have found in each other the ideal companion for it — through Mexico, Canada, Puerto Rico, Hawaii and Greece. The relationship has developed slowly over ten years. Some might say at a snail's pace. But the bond between them is strong and everlasting."
       }
     ]
   },
@@ -94,12 +94,12 @@
       "name": "Ceremony",
       "type": "ceremony",
       "description": "A traditional Greek wedding ceremony.",
-      "culturalNote": "The Greek Orthodox ceremony includes the Stefana, or crowning, a shared cup, and three walks around the altar â€” the couple's first steps together as husband and wife, and their promise to walk through the whole of life the same way. The three circles also represent the Holy Trinity, and the marriage being blessed under God.",
+      "culturalNote": "The Greek Orthodox ceremony includes the Stefana, or crowning, a shared cup, and three walks around the altar — the couple's first steps together as husband and wife, and their promise to walk through the whole of life the same way. The three circles also represent the Holy Trinity, and the marriage being blessed under God.",
       "startsAt": "2026-10-23T15:30:00-05:00",
       "venueId": "v_church",
       "dressCode": {
         "label": "Formal",
-        "notes": "Formal attire. Please dress in something elegant and sophisticated â€” a suit and tie, or a floor-length or cocktail dress. Shoulders should be covered inside the church."
+        "notes": "Formal attire. Please dress in something elegant and sophisticated — a suit and tie, or a floor-length or cocktail dress. Shoulders should be covered inside the church."
       },
       "rsvp": {
         "required": false
@@ -110,11 +110,11 @@
       "name": "Cocktail Hour",
       "type": "reception",
       "description": "Drinks and passed hors d'oeuvres. Weather permitting, this will be held on the terrace at the back of the building, overlooking the club grounds.",
-      "startsAt": "2026-10-23T17:00:00-05:00",
+      "startsAt": "2026-10-23T17:30:00-05:00",
       "venueId": "v_club",
       "dressCode": {
         "label": "Formal",
-        "notes": "Formal attire. Please dress in something elegant and sophisticated â€” a suit and tie, or a floor-length or cocktail dress."
+        "notes": "Formal attire. Please dress in something elegant and sophisticated — a suit and tie, or a floor-length or cocktail dress."
       },
       "rsvp": {
         "required": false
@@ -125,12 +125,12 @@
       "name": "Reception",
       "type": "reception",
       "description": "A plated dinner, and dancing to follow.",
-      "startsAt": "2026-10-23T18:00:00-05:00",
+      "startsAt": "2026-10-23T18:30:00-05:00",
       "endsAt": "2026-10-24T00:00:00-05:00",
       "venueId": "v_club",
       "dressCode": {
         "label": "Formal",
-        "notes": "Formal attire. Please dress in something elegant and sophisticated â€” a suit and tie, or a floor-length or cocktail dress."
+        "notes": "Formal attire. Please dress in something elegant and sophisticated — a suit and tie, or a floor-length or cocktail dress."
       },
       "rsvp": {
         "required": false,
@@ -149,10 +149,18 @@
       "side": "partner1"
     },
     {
+      "id": "wp11",
+      "firstName": "George",
+      "role": "Koumbaro",
+      "order": 2,
+      "lastName": "Kokkinias",
+      "side": "partner1"
+    },
+    {
       "id": "wp02",
       "firstName": "Kelli",
       "role": "Matron of Honor",
-      "order": 2,
+      "order": 3,
       "lastName": "Zorn",
       "side": "partner2"
     },
@@ -160,7 +168,7 @@
       "id": "wp03",
       "firstName": "Tori",
       "role": "Maid of Honor",
-      "order": 3,
+      "order": 4,
       "lastName": "Johnson",
       "side": "partner2"
     },
@@ -168,7 +176,7 @@
       "id": "wp04",
       "firstName": "Dean",
       "role": "Best Man",
-      "order": 4,
+      "order": 5,
       "lastName": "Leventis",
       "side": "partner1"
     },
@@ -176,7 +184,7 @@
       "id": "wp05",
       "firstName": "Julia",
       "role": "Bridesmaid",
-      "order": 5,
+      "order": 6,
       "lastName": "Livesey",
       "side": "partner2"
     },
@@ -184,7 +192,7 @@
       "id": "wp06",
       "firstName": "Paige",
       "role": "Bridesmaid",
-      "order": 6,
+      "order": 7,
       "lastName": "Leventis",
       "side": "partner2"
     },
@@ -192,7 +200,7 @@
       "id": "wp07",
       "firstName": "Sam",
       "role": "Groomsman",
-      "order": 7,
+      "order": 8,
       "lastName": "Papas",
       "side": "partner1"
     },
@@ -200,7 +208,7 @@
       "id": "wp08",
       "firstName": "Nicolas",
       "role": "Groomsman",
-      "order": 8,
+      "order": 9,
       "lastName": "Tasiopoulos",
       "side": "partner1"
     },
@@ -208,7 +216,7 @@
       "id": "wp09",
       "firstName": "Dimitri",
       "role": "Groomsman",
-      "order": 9,
+      "order": 10,
       "lastName": "Dallas",
       "side": "partner1"
     },
@@ -216,16 +224,8 @@
       "id": "wp10",
       "firstName": "Dino",
       "role": "Groomsman",
-      "order": 10,
-      "lastName": "Melitas",
-      "side": "partner1"
-    },
-    {
-      "id": "wp11",
-      "firstName": "George",
-      "role": "Groomsman",
       "order": 11,
-      "lastName": "Kokkinias",
+      "lastName": "Melitas",
       "side": "partner1"
     },
     {
@@ -244,6 +244,12 @@
     }
   ],
   "faq": [
+    {
+      "id": "f_rsvp",
+      "question": "How do we RSVP?",
+      "answer": "Please fill out the RSVP card that arrived with your wedding invitation and put it in the mail as soon as you can.",
+      "category": "logistics"
+    },
     {
       "id": "f1",
       "question": "Can I bring kids?",
@@ -371,5 +377,9 @@
     },
     "guestbook": false,
     "liveSongRequests": false
+  },
+  "registry": {
+    "intro": "We are simply grateful that you are making the trip. If you would like to give a gift, a registry is on the way and the link will appear here.",
+    "links": []
   }
 }

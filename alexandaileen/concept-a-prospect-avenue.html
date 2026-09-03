@@ -140,6 +140,18 @@ img{max-width:100%;display:block}
   100%{transform:scaleY(0);transform-origin:50% 100%}}
 
 /* ============ story ============ */
+.chapters{list-style:none;margin:0;padding:0;text-align:left}
+.chapter{padding-block:clamp(1.75rem,4vw,2.5rem);transition:opacity .7s var(--ease)}
+.chapter + .chapter{border-top:1px solid var(--hair)}
+.is-focusable .chapter{opacity:.32}
+.is-focusable .chapter.is-focus{opacity:1}
+.chapter__when{margin:0 0 .5rem;font-family:var(--display);font-size:.75rem;
+  letter-spacing:.24em;text-transform:uppercase;color:var(--gold);text-align:center}
+.chapter__when span{display:block;margin-top:.35rem;font-family:var(--body);
+  font-style:italic;text-transform:none;letter-spacing:0;font-size:.9375rem;color:var(--muted)}
+.chapter__title{margin:0 0 .85rem;font-family:var(--display);font-weight:400;
+  font-size:clamp(1.375rem,4vw,1.75rem);letter-spacing:.06em;text-align:center;line-height:1.25}
+.chapter__body{margin:0;font-size:1.0625rem;line-height:1.78}
 .prose{text-align:left}
 .prose p{margin:0 0 1.3em}
 .prose p:last-child{margin-bottom:0}
@@ -215,6 +227,35 @@ img{max-width:100%;display:block}
 .attire h3{font-family:var(--display);font-size:1.375rem;letter-spacing:.12em;margin:0 0 .85rem}
 .attire p{margin:0;max-width:32rem;margin-inline:auto}
 
+/* ============ registry ============ */
+.registry{max-width:32rem;margin-inline:auto}
+.registry > p{margin:0 0 1.5rem}
+.registry__soon{font-style:italic;color:var(--muted)}
+.registry__links{display:flex;flex-wrap:wrap;justify-content:center;gap:.75rem}
+.registry__link{display:inline-block;font-family:var(--display);font-size:1rem;
+  letter-spacing:.12em;text-decoration:none;color:var(--ink);border:1px solid var(--rule);
+  padding:.8rem 1.75rem;transition:background .35s var(--ease),color .35s,border-color .35s}
+.registry__link:hover{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+
+/* ============ gallery: framed prints, hung ============ */
+.gallery{display:grid;gap:clamp(1.5rem,4vw,2.75rem)}
+.frame{position:relative;margin:0;cursor:pointer;background:var(--tonal);
+  border:1px solid var(--rule);padding:clamp(.6rem,1.5vw,.9rem);
+  transition:transform .5s var(--ease),box-shadow .5s var(--ease),border-color .5s var(--ease)}
+.frame::after{content:"";position:absolute;inset:clamp(.6rem,1.5vw,.9rem);
+  border:1px solid var(--gold);opacity:.3;pointer-events:none}
+.frame:hover{transform:translateY(-4px);border-color:var(--gold);
+  box-shadow:0 22px 46px -32px rgba(0,0,0,.45)}
+.frame > img,.frame > .frame__empty{display:block;width:100%;aspect-ratio:4/5;object-fit:cover}
+.frame--wide > img,.frame--wide > .frame__empty{aspect-ratio:3/2}
+.frame__empty{display:grid;place-content:center;text-align:center;gap:.35rem;
+  font-family:var(--display);font-size:.6875rem;letter-spacing:.22em;text-transform:uppercase;
+  color:#8A7C5F;background:linear-gradient(155deg,#F1E7D1 0%,#E4D8BC 100%)}
+.frame__empty b{display:block;font-size:1.75rem;letter-spacing:-.01em;
+  text-transform:none;font-weight:400;color:var(--gold)}
+@media (min-width:760px){.gallery{grid-template-columns:repeat(2,1fr)}
+  .frame--wide{grid-column:1 / -1}}
+
 /* ============ party ============ */
 .member{padding-block:.95rem;border-bottom:1px solid var(--hair);transition:padding-left .35s var(--ease)}
 .member:first-child{border-top:1px solid var(--rule)}
@@ -237,6 +278,21 @@ img{max-width:100%;display:block}
 .footer__meta{font-style:italic;color:var(--muted);margin:0;line-height:1.9}
 .footer__meta a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--rule)}
 .footer__meta a:hover{color:var(--gold);border-bottom-color:var(--gold)}
+
+.lightbox{position:fixed;inset:0;z-index:200;display:none;place-items:center;
+  background:rgba(0,0,0,.92);padding:clamp(1rem,5vw,3rem)}
+.lightbox.is-open{display:grid}
+.lightbox__stage{margin:0;max-width:min(74rem,92vw);display:flex;flex-direction:column;
+  align-items:center;gap:1rem}
+.lightbox__stage img{max-width:100%;max-height:78vh;object-fit:contain}
+.lightbox__stage figcaption{color:rgba(255,255,255,.72);font-size:.875rem;text-align:center}
+.lightbox button{position:absolute;background:none;border:0;cursor:pointer;
+  color:rgba(255,255,255,.75);transition:color .3s;line-height:1}
+.lightbox button:hover{color:#fff}
+.lightbox__close{top:1.25rem;right:1.5rem;font-size:2.25rem}
+.lightbox__nav{top:50%;transform:translateY(-50%);font-size:3rem;padding:1rem}
+.lightbox__nav--prev{left:.5rem}
+.lightbox__nav--next{right:.5rem}
 </style>
 </head>
 <body>
@@ -250,6 +306,8 @@ img{max-width:100%;display:block}
       <a href="#story"     data-target="story">Story</a>
       <a href="#day"       data-target="day">The day</a>
       <a href="#party"     data-target="party">Party</a>
+      <a href="#gallery-sec" data-target="gallery-sec">Photos</a>
+      <a href="#registry"  data-target="registry">Registry</a>
       <a href="#questions" data-target="questions">Questions</a>
     </div>
   </div>
@@ -273,7 +331,7 @@ img{max-width:100%;display:block}
     <div class="column">
       <h2 class="section__title" id="story-t" data-reveal></h2>
       <hr class="divider" data-reveal>
-      <div class="prose" id="story-body" data-reveal></div>
+      <ol class="chapters" id="story-body"></ol>
       <div class="traits" id="traits" data-reveal></div>
     </div>
   </section>
@@ -296,6 +354,22 @@ img{max-width:100%;display:block}
       <h2 class="section__title" id="party-t" data-reveal>Standing With Us</h2>
       <hr class="divider" data-reveal>
       <div id="party-list" data-reveal></div>
+    </div>
+  </section>
+
+  <section class="section" id="gallery-sec" aria-labelledby="g-t">
+    <div class="column">
+      <h2 class="section__title" id="g-t" data-reveal>Photographs</h2>
+      <hr class="divider" data-reveal>
+      <div class="gallery" id="gallery" data-reveal></div>
+    </div>
+  </section>
+
+  <section class="section" id="registry" aria-labelledby="r-t">
+    <div class="column">
+      <h2 class="section__title" id="r-t" data-reveal>Registry</h2>
+      <hr class="divider" data-reveal>
+      <div class="registry" id="registry-body" data-reveal></div>
     </div>
   </section>
 
@@ -338,13 +412,13 @@ const DATA = {
     "status": "draft"
   },
   "couple": {
-    "displayName": "Alex & Aileen",
+    "displayName": "Alexander & Aileen",
     "partners": [
       {
         "id": "p1",
         "firstName": "Alexander",
         "lastName": "Leventis",
-        "preferredName": "Alex",
+        "preferredName": "Alexander",
         "bio": "A tenacious entrepreneur."
       },
       {
@@ -364,7 +438,7 @@ const DATA = {
         "date": "Summer 2016",
         "location": "Libertyville, IL",
         "title": "The 6:30 to Chicago",
-        "body": "Alex and Aileen had both graduated college, were living at home with their parents, and were commuting into Chicago on the Milwaukee North line. Every morning they hauled themselves to the Libertyville station at the ungodly hour of 6:30. And while they stood on the platform, half asleep, waiting for the train to roll in, they noticed one another. The tall and handsome man. The beautiful blonde."
+        "body": "Alexander and Aileen had both graduated college, were living at home with their parents, and were commuting into Chicago on the Milwaukee North line. Every morning they hauled themselves to the Libertyville station at the ungodly hour of 6:30. And while they stood on the platform, half asleep, waiting for the train to roll in, they noticed one another. The tall and handsome man. The beautiful blonde."
       },
       {
         "id": "ch2",
@@ -377,13 +451,13 @@ const DATA = {
         "id": "ch3",
         "date": "2020",
         "title": "A suitcase packed for two weeks",
-        "body": "Aileen was living with roommates, one of them an ER nurse. When the lockdown began, Alex drove over and picked her up with a suitcase packed for two weeks. Essentially, he saved her life. They have lived together ever since."
+        "body": "Aileen was living with roommates, one of them an ER nurse. When the lockdown began, Alexander drove over and picked her up with a suitcase packed for two weeks. Essentially, he saved her life. They have lived together ever since."
       },
       {
         "id": "ch4",
         "date": "Ever since",
         "title": "The perfect travel buddy",
-        "body": "Both of them count their travels among the most significant parts of the relationship. Travel has a way of exposing every side of a person, and they have found in each other the ideal companion for it â€” through Mexico, Canada, Puerto Rico, Hawaii and Greece. The relationship has developed slowly over ten years. Some might say at a snail's pace. But the bond between them is strong and everlasting."
+        "body": "Both of them count their travels among the most significant parts of the relationship. Travel has a way of exposing every side of a person, and they have found in each other the ideal companion for it — through Mexico, Canada, Puerto Rico, Hawaii and Greece. The relationship has developed slowly over ten years. Some might say at a snail's pace. But the bond between them is strong and everlasting."
       }
     ]
   },
@@ -419,12 +493,12 @@ const DATA = {
       "name": "Ceremony",
       "type": "ceremony",
       "description": "A traditional Greek wedding ceremony.",
-      "culturalNote": "The Greek Orthodox ceremony includes the Stefana, or crowning, a shared cup, and three walks around the altar â€” the couple's first steps together as husband and wife, and their promise to walk through the whole of life the same way. The three circles also represent the Holy Trinity, and the marriage being blessed under God.",
+      "culturalNote": "The Greek Orthodox ceremony includes the Stefana, or crowning, a shared cup, and three walks around the altar — the couple's first steps together as husband and wife, and their promise to walk through the whole of life the same way. The three circles also represent the Holy Trinity, and the marriage being blessed under God.",
       "startsAt": "2026-10-23T15:30:00-05:00",
       "venueId": "v_church",
       "dressCode": {
         "label": "Formal",
-        "notes": "Formal attire. Please dress in something elegant and sophisticated â€” a suit and tie, or a floor-length or cocktail dress. Shoulders should be covered inside the church."
+        "notes": "Formal attire. Please dress in something elegant and sophisticated — a suit and tie, or a floor-length or cocktail dress. Shoulders should be covered inside the church."
       },
       "rsvp": {
         "required": false
@@ -435,11 +509,11 @@ const DATA = {
       "name": "Cocktail Hour",
       "type": "reception",
       "description": "Drinks and passed hors d'oeuvres. Weather permitting, this will be held on the terrace at the back of the building, overlooking the club grounds.",
-      "startsAt": "2026-10-23T17:00:00-05:00",
+      "startsAt": "2026-10-23T17:30:00-05:00",
       "venueId": "v_club",
       "dressCode": {
         "label": "Formal",
-        "notes": "Formal attire. Please dress in something elegant and sophisticated â€” a suit and tie, or a floor-length or cocktail dress."
+        "notes": "Formal attire. Please dress in something elegant and sophisticated — a suit and tie, or a floor-length or cocktail dress."
       },
       "rsvp": {
         "required": false
@@ -450,12 +524,12 @@ const DATA = {
       "name": "Reception",
       "type": "reception",
       "description": "A plated dinner, and dancing to follow.",
-      "startsAt": "2026-10-23T18:00:00-05:00",
+      "startsAt": "2026-10-23T18:30:00-05:00",
       "endsAt": "2026-10-24T00:00:00-05:00",
       "venueId": "v_club",
       "dressCode": {
         "label": "Formal",
-        "notes": "Formal attire. Please dress in something elegant and sophisticated â€” a suit and tie, or a floor-length or cocktail dress."
+        "notes": "Formal attire. Please dress in something elegant and sophisticated — a suit and tie, or a floor-length or cocktail dress."
       },
       "rsvp": {
         "required": false,
@@ -474,10 +548,18 @@ const DATA = {
       "side": "partner1"
     },
     {
+      "id": "wp11",
+      "firstName": "George",
+      "role": "Koumbaro",
+      "order": 2,
+      "lastName": "Kokkinias",
+      "side": "partner1"
+    },
+    {
       "id": "wp02",
       "firstName": "Kelli",
       "role": "Matron of Honor",
-      "order": 2,
+      "order": 3,
       "lastName": "Zorn",
       "side": "partner2"
     },
@@ -485,7 +567,7 @@ const DATA = {
       "id": "wp03",
       "firstName": "Tori",
       "role": "Maid of Honor",
-      "order": 3,
+      "order": 4,
       "lastName": "Johnson",
       "side": "partner2"
     },
@@ -493,7 +575,7 @@ const DATA = {
       "id": "wp04",
       "firstName": "Dean",
       "role": "Best Man",
-      "order": 4,
+      "order": 5,
       "lastName": "Leventis",
       "side": "partner1"
     },
@@ -501,7 +583,7 @@ const DATA = {
       "id": "wp05",
       "firstName": "Julia",
       "role": "Bridesmaid",
-      "order": 5,
+      "order": 6,
       "lastName": "Livesey",
       "side": "partner2"
     },
@@ -509,7 +591,7 @@ const DATA = {
       "id": "wp06",
       "firstName": "Paige",
       "role": "Bridesmaid",
-      "order": 6,
+      "order": 7,
       "lastName": "Leventis",
       "side": "partner2"
     },
@@ -517,7 +599,7 @@ const DATA = {
       "id": "wp07",
       "firstName": "Sam",
       "role": "Groomsman",
-      "order": 7,
+      "order": 8,
       "lastName": "Papas",
       "side": "partner1"
     },
@@ -525,7 +607,7 @@ const DATA = {
       "id": "wp08",
       "firstName": "Nicolas",
       "role": "Groomsman",
-      "order": 8,
+      "order": 9,
       "lastName": "Tasiopoulos",
       "side": "partner1"
     },
@@ -533,7 +615,7 @@ const DATA = {
       "id": "wp09",
       "firstName": "Dimitri",
       "role": "Groomsman",
-      "order": 9,
+      "order": 10,
       "lastName": "Dallas",
       "side": "partner1"
     },
@@ -541,16 +623,8 @@ const DATA = {
       "id": "wp10",
       "firstName": "Dino",
       "role": "Groomsman",
-      "order": 10,
-      "lastName": "Melitas",
-      "side": "partner1"
-    },
-    {
-      "id": "wp11",
-      "firstName": "George",
-      "role": "Groomsman",
       "order": 11,
-      "lastName": "Kokkinias",
+      "lastName": "Melitas",
       "side": "partner1"
     },
     {
@@ -569,6 +643,12 @@ const DATA = {
     }
   ],
   "faq": [
+    {
+      "id": "f_rsvp",
+      "question": "How do we RSVP?",
+      "answer": "Please fill out the RSVP card that arrived with your wedding invitation and put it in the mail as soon as you can.",
+      "category": "logistics"
+    },
     {
       "id": "f1",
       "question": "Can I bring kids?",
@@ -696,6 +776,10 @@ const DATA = {
     },
     "guestbook": false,
     "liveSongRequests": false
+  },
+  "registry": {
+    "intro": "We are simply grateful that you are making the trip. If you would like to give a gift, a registry is on the way and the link will appear here.",
+    "links": []
   }
 };
 
@@ -716,7 +800,7 @@ const _p = iso => {
 };
 const _dow = (y,mo,d) => DAYS[new Date(Date.UTC(y, mo-1, d)).getUTCDay()];
 const meridiemOf = h => h < 12 ? "in the morning" : (h < 17 ? "in the afternoon" : "in the evening");
-const clockOf = p => ((p.h % 12) || 12) + ":" + String(p.min).padStart(2,"0");
+const clockOf = p => ((p.h % 12) || 12) + ":" + String(p.min).padStart(2,"0") + (p.h < 12 ? "am" : "pm");
 const spokenTime = p =>
   (p.min === 0 ? ONES[p.h % 12] + " o'clock" : "half past " + ONES[p.h % 12]) + " " + meridiemOf(p.h);
 const formalWhen = iso => {
@@ -983,6 +1067,71 @@ function initDock(sectionIds) {
   activate(sectionIds[0]);
 }
 
+
+/* Honoured roles are named, not counted, so adding a fifth (Koumbaro)
+   does not depend on where it happens to sit in the list. */
+const HONOURED_ROLES = ["Koumbara","Koumbaro","Matron of Honor","Maid of Honor","Best Man"];
+W.party = DATA.party.map(m => ({
+  name: [m.firstName, m.lastName].filter(Boolean).join(" "),
+  role: m.role,
+  honored: HONOURED_ROLES.indexOf(m.role) !== -1
+}));
+W.registry = {
+  intro: (DATA.registry && DATA.registry.intro) || "",
+  links: (DATA.registry && DATA.registry.links) || []
+};
+delete W.contactEmail;
+
+/* How many empty frames the gallery draws before photographs exist. */
+const GALLERY_PLACEHOLDERS = 8;
+function galleryItems() {
+  const list = (typeof PHOTOS !== "undefined" && Array.isArray(PHOTOS.gallery)) ? PHOTOS.gallery : [];
+  if (list.length) return list.map((g, i) => ({ src: g.src || null, caption: g.caption || "", n: i + 1 }));
+  return Array.from({ length: GALLERY_PLACEHOLDERS }, (_, i) => ({ src: null, caption: "", n: i + 1 }));
+}
+function frame(item) {
+  if (item.src) return '<img src="' + esc(item.src) + '" alt="' + esc(item.caption || W.display) + '" loading="lazy">';
+  return '<span class="frame__empty"><b>' + String(item.n).padStart(2,"0") + '</b>Photograph</span>';
+}
+function registryHTML() {
+  if (!W.registry.links.length) {
+    return '<p class="registry__soon">A registry is on the way. The link will appear here as soon as it is ready.</p>';
+  }
+  return '<div class="registry__links">' + W.registry.links.map(l =>
+    '<a class="registry__link" href="' + esc(l.url) + '" target="_blank" rel="noopener">' + esc(l.name) + '</a>').join("") + '</div>';
+}
+function initLightbox(root) {
+  if (!root) return;
+  const items = galleryItems().filter(i => i.src);
+  if (!items.length) return;
+  const box = document.createElement("div");
+  box.className = "lightbox";
+  box.innerHTML = '<button class="lightbox__close" aria-label="Close">&times;</button>' +
+    '<button class="lightbox__nav lightbox__nav--prev" aria-label="Previous">&#8249;</button>' +
+    '<figure class="lightbox__stage"><img alt=""><figcaption></figcaption></figure>' +
+    '<button class="lightbox__nav lightbox__nav--next" aria-label="Next">&#8250;</button>';
+  document.body.appendChild(box);
+  const img = box.querySelector("img"), cap = box.querySelector("figcaption");
+  let at = 0;
+  const show = i => { at = (i + items.length) % items.length; img.src = items[at].src;
+    img.alt = items[at].caption || W.display; cap.textContent = items[at].caption || ""; };
+  const close = () => { box.classList.remove("is-open"); document.body.style.overflow = ""; };
+  root.addEventListener("click", e => {
+    const cell = e.target.closest("[data-shot]");
+    if (cell) { show(+cell.dataset.shot); box.classList.add("is-open"); document.body.style.overflow = "hidden"; }
+  });
+  box.querySelector(".lightbox__close").addEventListener("click", close);
+  box.querySelector(".lightbox__nav--prev").addEventListener("click", () => show(at - 1));
+  box.querySelector(".lightbox__nav--next").addEventListener("click", () => show(at + 1));
+  box.addEventListener("click", e => { if (e.target === box) close(); });
+  addEventListener("keydown", e => {
+    if (!box.classList.contains("is-open")) return;
+    if (e.key === "Escape") close();
+    if (e.key === "ArrowLeft") show(at - 1);
+    if (e.key === "ArrowRight") show(at + 1);
+  });
+}
+
 </script>
 <script>
 /* ===================================================================
@@ -1004,9 +1153,12 @@ $("date").textContent = W.date.long;
 $("place").textContent = W.locality.toUpperCase();
 
 $("story-t").textContent = W.storyHeadline;
-$("story-body").innerHTML =
-  '<p class="lede">' + esc(W.chapters[0].date) + " — " + esc(W.chapters[0].title) + "</p>" +
-  W.chapters.map(c => "<p>" + esc(c.body) + "</p>").join("");
+$("story-body").innerHTML = W.chapters.map((c, i) => `
+  <li class="chapter" data-reveal style="--i:${i}">
+    <p class="chapter__when">${esc(c.date)}${c.location ? `<span>${esc(c.location)}</span>` : ""}</p>
+    <h3 class="chapter__title">${esc(c.title)}</h3>
+    <p class="chapter__body">${esc(c.body)}</p>
+  </li>`).join("");
 $("traits").innerHTML = W.traits
   .map(t => "<p><span>" + esc(t.who.toUpperCase()) + "</span> &nbsp; " + esc(t.bio) + "</p>").join("");
 
@@ -1014,7 +1166,7 @@ $("timeline").innerHTML = W.events.map((e, i) => `
   <article class="stop" data-reveal style="--i:${i}">
     <div class="stop__node"></div>
     <div class="stop__card">
-      <p class="stop__clock">${esc(e.clock)} <span>${esc(e.meridiem)}</span></p>
+      <p class="stop__clock">${esc(e.clock)}</p>
       <h3 class="stop__name">${esc(e.name)}</h3>
       <p class="stop__when">${esc(e.formal)}</p>
       <p class="stop__venue">${esc(e.venue)}</p>
@@ -1025,6 +1177,11 @@ $("timeline").innerHTML = W.events.map((e, i) => `
     </div>
   </article>`).join("");
 $("attire").textContent = W.attire;
+
+$("gallery").innerHTML = galleryItems().map((g, i) =>
+  '<figure class="frame' + (i % 3 === 0 ? " frame--wide" : "") + '" data-shot="' + i + '">' +
+  frame(g) + "</figure>").join("");
+$("registry-body").innerHTML = "<p>" + esc(W.registry.intro) + "</p>" + registryHTML();
 
 $("party-list").innerHTML = W.party.map(m => `
   <div class="member${m.honored ? " member--honored" : ""}">
@@ -1039,8 +1196,7 @@ $("faq-list").innerHTML = W.faq.map(f => `
   </div>`).join("");
 
 $("f-names").innerHTML = esc(W.legalNames[0]) + "<br>" + esc(W.legalNames[1]);
-$("f-meta").innerHTML = esc(W.date.short) + "<br>" +
-  '<a href="mailto:' + esc(W.contactEmail) + '">' + esc(W.contactEmail) + "</a>";
+$("f-meta").innerHTML = esc(W.date.short) + "<br>" + esc(W.locality);
 
 const left = daysUntil();
 $("countdown").innerHTML = left > 0
@@ -1048,9 +1204,25 @@ $("countdown").innerHTML = left > 0
   : (left === 0 ? "<b>Today</b>" : "Married");
 
 /* ---------- behaviour ---------- */
+function initStoryFocus() {
+  const rows = [...document.querySelectorAll(".chapter")];
+  if (!rows.length) return;
+  if (REDUCED || !("IntersectionObserver" in window)) {
+    rows.forEach(r => r.classList.add("is-focus")); return;
+  }
+  $("story-body").classList.add("is-focusable");
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) rows.forEach(r => r.classList.toggle("is-focus", r === e.target));
+  }), { rootMargin: "-45% 0px -45% 0px" });
+  rows.forEach(r => io.observe(r));
+  rows[0].classList.add("is-focus");
+}
+
+initStoryFocus();
 paintScenes();
 initMotion();
-initDock(["story","day","party","questions"]);
+initDock(["story","day","party","gallery-sec","registry","questions"]);
+initLightbox($("gallery"));
 requestAnimationFrame(() => document.body.classList.add("is-loaded"));
 </script>
 </body>

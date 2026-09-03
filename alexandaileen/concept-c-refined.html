@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Alex &amp; Aileen â€” October 23, 2026</title>
+<title>Alex &amp; Aileen — October 23, 2026</title>
 <meta name="description" content="Alexander Leventis and Aileen Everitt are married on Friday, October 23, 2026 in Glenview and Park Ridge, Illinois.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Cardo:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 /* ===================================================================
-   CONCEPT C â€” "MARQUEE"
+   CONCEPT C — "MARQUEE"
 
    No cards, no containers, no motif. The page runs edge to edge and
    the only structure is scale: enormous type, hairline rules, and a
@@ -18,8 +18,8 @@
    piece of stationery and B builds a magazine grid, this one uses the
    whole width of the screen and lets the words carry the occasion.
 
-   PALETTE â€” derived arithmetically from the three supplied colours.
-   base #FDFFF8 Â· ink #000000 Â· gold #D19D01
+   PALETTE — derived arithmetically from the three supplied colours.
+   base #FDFFF8 · ink #000000 · gold #D19D01
    =================================================================== */
 :root{
   --base:#FDFFF8;                 /* supplied, untouched      */
@@ -86,7 +86,7 @@ img{max-width:100%;display:block}
 .footer .scene--empty .scene__veil{background:var(--ink)}
 
 /* ===================================================================
-   HERO â€” the names at full width, nothing else competing
+   HERO — the names at full width, nothing else competing
    =================================================================== */
 .hero{min-height:100svh;display:flex;flex-direction:column;justify-content:space-between;
   padding:clamp(5rem,11vh,8rem) var(--pad) clamp(1.75rem,4vw,2.5rem)}
@@ -118,7 +118,7 @@ img{max-width:100%;display:block}
 .hero__foot .dim{color:var(--muted)}
 
 /* ===================================================================
-   BANDS â€” every section runs the full width, divided by one rule
+   BANDS — every section runs the full width, divided by one rule
    =================================================================== */
 .band{padding:clamp(4rem,9vw,7rem) var(--pad) clamp(4.5rem,10vw,8rem);
   border-top:1px solid var(--ink);position:relative}
@@ -163,7 +163,7 @@ img{max-width:100%;display:block}
   gap:1rem clamp(1.5rem,5vw,4rem);align-items:start;
   border-top:1px solid var(--ink);padding-block:clamp(2.25rem,5vw,3.5rem)}
 .slot:last-child{border-bottom:1px solid var(--ink)}
-.slot__hour{margin:0;font-family:var(--display);font-weight:400;
+.slot__hour{margin:0 0 1.25rem;font-family:var(--display);font-weight:400;
   font-size:clamp(3.25rem,11vw,7.5rem);line-height:.84;letter-spacing:-.045em;
   font-variant-numeric:tabular-nums;transition:color .5s var(--ease)}
 .slot:hover .slot__hour{color:var(--gold)}
@@ -180,15 +180,14 @@ img{max-width:100%;display:block}
 .slot__about{margin:0;max-width:40rem}
 .slot__note{margin:1.25rem 0 0;font-size:.9375rem;color:var(--muted);
   padding-left:1rem;border-left:1px solid var(--gold);max-width:36rem}
-/* the Stefana â€” a footnote inside the ceremony, never a headline */
+/* the Stefana — a footnote inside the ceremony, never a headline */
 .aside{margin:1.5rem 0 0;padding-top:1.2rem;border-top:1px solid var(--hair);max-width:40rem}
 .aside h4{margin:0 0 .5rem;font-size:.625rem;letter-spacing:.24em;
   text-transform:uppercase;color:var(--gold);font-weight:400;font-family:var(--body)}
 .aside p{margin:0;font-size:.9375rem;line-height:1.75;color:var(--muted)}
 @media (max-width:720px){
   .slot{grid-template-columns:1fr;gap:.25rem}
-  .slot__mer{margin-bottom:1.25rem}
-}
+  }
 
 .dayfoot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;
   gap:1.5rem 3rem;margin-top:clamp(2.5rem,6vw,3.5rem)}
@@ -236,6 +235,39 @@ img{max-width:100%;display:block}
 .faq__a{overflow:hidden;max-height:0;transition:max-height .55s var(--ease)}
 .faq__a p{margin:0 0 1.4rem;font-size:1rem;color:var(--muted);max-width:42rem}
 
+/* ---------- registry ---------- */
+.registry{max-width:44rem}
+.registry > p{margin:0 0 1.75rem;font-size:1.0625rem}
+.registry__soon{font-style:italic;color:var(--muted);padding-left:1rem;border-left:1px solid var(--gold)}
+.registry__links{display:flex;flex-wrap:wrap;gap:.75rem}
+.registry__link{display:inline-block;font-family:var(--display);font-size:1.25rem;
+  text-decoration:none;color:var(--ink);border:1px solid var(--rule);padding:.8rem 1.75rem;
+  transition:background .35s var(--ease),color .35s,border-color .35s}
+.registry__link:hover{background:var(--ink);color:var(--base);border-color:var(--ink)}
+
+/* ---------- gallery: a filmstrip, running off the edge of the page ---------- */
+.strip{display:flex;gap:clamp(.5rem,1.4vw,1rem);overflow-x:auto;
+  scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:1.25rem;
+  margin-right:calc(var(--pad) * -1);scrollbar-width:none;-ms-overflow-style:none;cursor:grab}
+.strip::-webkit-scrollbar{display:none}
+.strip.is-dragging{cursor:grabbing;scroll-snap-type:none}
+.strip figure{margin:0;flex:0 0 auto;width:clamp(15rem,34vw,24rem);aspect-ratio:3/4;
+  position:relative;overflow:hidden;background:var(--panel);scroll-snap-align:start;cursor:pointer}
+.strip figure:last-child{margin-right:var(--pad)}
+.strip figure > img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.strip figure:hover > img{transform:scale(1.05)}
+.frame__empty{width:100%;height:100%;display:grid;place-content:center;text-align:center;gap:.4rem;
+  background:linear-gradient(155deg,var(--tint) 0%,var(--edge) 100%);
+  font-size:.625rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+.frame__empty b{display:block;font-family:var(--display);font-size:2rem;
+  letter-spacing:-.02em;color:var(--gold);text-transform:none}
+.strip__meta{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;
+  margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--hair);
+  font-size:.6875rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.strip__meta p{margin:0}
+.strip__meta b{font-family:var(--display);font-size:1.25rem;letter-spacing:0;
+  color:var(--ink);text-transform:none;font-weight:400}
+
 /* ---------- footer ---------- */
 .footer{background:var(--ink);color:var(--base);
   padding:clamp(4.5rem,10vw,7rem) var(--pad) clamp(5.5rem,10vw,7rem)}
@@ -252,6 +284,21 @@ img{max-width:100%;display:block}
 .footer a{color:var(--gold-dim);text-decoration:none;text-transform:none;letter-spacing:.04em;
   border-bottom:1px solid rgba(235,214,144,.35)}
 .footer a:hover{color:var(--base);border-bottom-color:var(--base)}
+
+.lightbox{position:fixed;inset:0;z-index:200;display:none;place-items:center;
+  background:rgba(0,0,0,.92);padding:clamp(1rem,5vw,3rem)}
+.lightbox.is-open{display:grid}
+.lightbox__stage{margin:0;max-width:min(74rem,92vw);display:flex;flex-direction:column;
+  align-items:center;gap:1rem}
+.lightbox__stage img{max-width:100%;max-height:78vh;object-fit:contain}
+.lightbox__stage figcaption{color:rgba(255,255,255,.72);font-size:.875rem;text-align:center}
+.lightbox button{position:absolute;background:none;border:0;cursor:pointer;
+  color:rgba(255,255,255,.75);transition:color .3s;line-height:1}
+.lightbox button:hover{color:#fff}
+.lightbox__close{top:1.25rem;right:1.5rem;font-size:2.25rem}
+.lightbox__nav{top:50%;transform:translateY(-50%);font-size:3rem;padding:1rem}
+.lightbox__nav--prev{left:.5rem}
+.lightbox__nav--next{right:.5rem}
 </style>
 </head>
 <body>
@@ -265,6 +312,8 @@ img{max-width:100%;display:block}
       <a href="#story"     data-target="story">Story</a>
       <a href="#day"       data-target="day">The day</a>
       <a href="#party"     data-target="party">Party</a>
+      <a href="#gallery-sec" data-target="gallery-sec">Photos</a>
+      <a href="#registry"  data-target="registry">Registry</a>
       <a href="#questions" data-target="questions">Questions</a>
     </div>
   </div>
@@ -316,6 +365,26 @@ img{max-width:100%;display:block}
     <div class="roster" id="roster" data-reveal></div>
   </section>
 
+  <section class="band" id="gallery-sec" aria-labelledby="g-t">
+    <div class="band__head" data-reveal>
+      <h2 id="g-t">Photographs</h2>
+      <p>Drag or swipe</p>
+    </div>
+    <div class="strip" id="gallery"></div>
+    <div class="strip__meta">
+      <p id="stripCount"></p>
+      <p>Scroll sideways</p>
+    </div>
+  </section>
+
+  <section class="band" id="registry" aria-labelledby="r-t">
+    <div class="band__head" data-reveal>
+      <h2 id="r-t">Registry</h2>
+      <p>If you would like to</p>
+    </div>
+    <div class="registry" id="registry-body" data-reveal></div>
+  </section>
+
   <section class="band" id="questions" aria-labelledby="q-t">
     <div class="band__head" data-reveal>
       <h2 id="q-t">Questions</h2>
@@ -337,10 +406,10 @@ img{max-width:100%;display:block}
 <script>
 /* Content inlined so this file renders standalone. Generated from alex-and-aileen.json. */
 /* =====================================================================
-   site-data.js â€” shared by all three concepts.
+   site-data.js — shared by all three concepts.
    DATA is a verbatim instance of wedding.schema.json 1.0.0.
    The adapter below derives display values; it never invents content.
-   Regenerate this file from alex-and-aileen.json â€” do not hand-edit DATA.
+   Regenerate this file from alex-and-aileen.json — do not hand-edit DATA.
    ===================================================================== */
 
 const DATA = {
@@ -358,13 +427,13 @@ const DATA = {
     "status": "draft"
   },
   "couple": {
-    "displayName": "Alex & Aileen",
+    "displayName": "Alexander & Aileen",
     "partners": [
       {
         "id": "p1",
         "firstName": "Alexander",
         "lastName": "Leventis",
-        "preferredName": "Alex",
+        "preferredName": "Alexander",
         "bio": "A tenacious entrepreneur."
       },
       {
@@ -384,7 +453,7 @@ const DATA = {
         "date": "Summer 2016",
         "location": "Libertyville, IL",
         "title": "The 6:30 to Chicago",
-        "body": "Alex and Aileen had both graduated college, were living at home with their parents, and were commuting into Chicago on the Milwaukee North line. Every morning they hauled themselves to the Libertyville station at the ungodly hour of 6:30. And while they stood on the platform, half asleep, waiting for the train to roll in, they noticed one another. The tall and handsome man. The beautiful blonde."
+        "body": "Alexander and Aileen had both graduated college, were living at home with their parents, and were commuting into Chicago on the Milwaukee North line. Every morning they hauled themselves to the Libertyville station at the ungodly hour of 6:30. And while they stood on the platform, half asleep, waiting for the train to roll in, they noticed one another. The tall and handsome man. The beautiful blonde."
       },
       {
         "id": "ch2",
@@ -397,13 +466,13 @@ const DATA = {
         "id": "ch3",
         "date": "2020",
         "title": "A suitcase packed for two weeks",
-        "body": "Aileen was living with roommates, one of them an ER nurse. When the lockdown began, Alex drove over and picked her up with a suitcase packed for two weeks. Essentially, he saved her life. They have lived together ever since."
+        "body": "Aileen was living with roommates, one of them an ER nurse. When the lockdown began, Alexander drove over and picked her up with a suitcase packed for two weeks. Essentially, he saved her life. They have lived together ever since."
       },
       {
         "id": "ch4",
         "date": "Ever since",
         "title": "The perfect travel buddy",
-        "body": "Both of them count their travels among the most significant parts of the relationship. Travel has a way of exposing every side of a person, and they have found in each other the ideal companion for it â€” through Mexico, Canada, Puerto Rico, Hawaii and Greece. The relationship has developed slowly over ten years. Some might say at a snail's pace. But the bond between them is strong and everlasting."
+        "body": "Both of them count their travels among the most significant parts of the relationship. Travel has a way of exposing every side of a person, and they have found in each other the ideal companion for it — through Mexico, Canada, Puerto Rico, Hawaii and Greece. The relationship has developed slowly over ten years. Some might say at a snail's pace. But the bond between them is strong and everlasting."
       }
     ]
   },
@@ -439,12 +508,12 @@ const DATA = {
       "name": "Ceremony",
       "type": "ceremony",
       "description": "A traditional Greek wedding ceremony.",
-      "culturalNote": "The Greek Orthodox ceremony includes the Stefana, or crowning, a shared cup, and three walks around the altar â€” the couple's first steps together as husband and wife, and their promise to walk through the whole of life the same way. The three circles also represent the Holy Trinity, and the marriage being blessed under God.",
+      "culturalNote": "The Greek Orthodox ceremony includes the Stefana, or crowning, a shared cup, and three walks around the altar — the couple's first steps together as husband and wife, and their promise to walk through the whole of life the same way. The three circles also represent the Holy Trinity, and the marriage being blessed under God.",
       "startsAt": "2026-10-23T15:30:00-05:00",
       "venueId": "v_church",
       "dressCode": {
         "label": "Formal",
-        "notes": "Formal attire. Please dress in something elegant and sophisticated â€” a suit and tie, or a floor-length or cocktail dress. Shoulders should be covered inside the church."
+        "notes": "Formal attire. Please dress in something elegant and sophisticated — a suit and tie, or a floor-length or cocktail dress. Shoulders should be covered inside the church."
       },
       "rsvp": {
         "required": false
@@ -455,11 +524,11 @@ const DATA = {
       "name": "Cocktail Hour",
       "type": "reception",
       "description": "Drinks and passed hors d'oeuvres. Weather permitting, this will be held on the terrace at the back of the building, overlooking the club grounds.",
-      "startsAt": "2026-10-23T17:00:00-05:00",
+      "startsAt": "2026-10-23T17:30:00-05:00",
       "venueId": "v_club",
       "dressCode": {
         "label": "Formal",
-        "notes": "Formal attire. Please dress in something elegant and sophisticated â€” a suit and tie, or a floor-length or cocktail dress."
+        "notes": "Formal attire. Please dress in something elegant and sophisticated — a suit and tie, or a floor-length or cocktail dress."
       },
       "rsvp": {
         "required": false
@@ -470,12 +539,12 @@ const DATA = {
       "name": "Reception",
       "type": "reception",
       "description": "A plated dinner, and dancing to follow.",
-      "startsAt": "2026-10-23T18:00:00-05:00",
+      "startsAt": "2026-10-23T18:30:00-05:00",
       "endsAt": "2026-10-24T00:00:00-05:00",
       "venueId": "v_club",
       "dressCode": {
         "label": "Formal",
-        "notes": "Formal attire. Please dress in something elegant and sophisticated â€” a suit and tie, or a floor-length or cocktail dress."
+        "notes": "Formal attire. Please dress in something elegant and sophisticated — a suit and tie, or a floor-length or cocktail dress."
       },
       "rsvp": {
         "required": false,
@@ -494,10 +563,18 @@ const DATA = {
       "side": "partner1"
     },
     {
+      "id": "wp11",
+      "firstName": "George",
+      "role": "Koumbaro",
+      "order": 2,
+      "lastName": "Kokkinias",
+      "side": "partner1"
+    },
+    {
       "id": "wp02",
       "firstName": "Kelli",
       "role": "Matron of Honor",
-      "order": 2,
+      "order": 3,
       "lastName": "Zorn",
       "side": "partner2"
     },
@@ -505,7 +582,7 @@ const DATA = {
       "id": "wp03",
       "firstName": "Tori",
       "role": "Maid of Honor",
-      "order": 3,
+      "order": 4,
       "lastName": "Johnson",
       "side": "partner2"
     },
@@ -513,7 +590,7 @@ const DATA = {
       "id": "wp04",
       "firstName": "Dean",
       "role": "Best Man",
-      "order": 4,
+      "order": 5,
       "lastName": "Leventis",
       "side": "partner1"
     },
@@ -521,7 +598,7 @@ const DATA = {
       "id": "wp05",
       "firstName": "Julia",
       "role": "Bridesmaid",
-      "order": 5,
+      "order": 6,
       "lastName": "Livesey",
       "side": "partner2"
     },
@@ -529,7 +606,7 @@ const DATA = {
       "id": "wp06",
       "firstName": "Paige",
       "role": "Bridesmaid",
-      "order": 6,
+      "order": 7,
       "lastName": "Leventis",
       "side": "partner2"
     },
@@ -537,7 +614,7 @@ const DATA = {
       "id": "wp07",
       "firstName": "Sam",
       "role": "Groomsman",
-      "order": 7,
+      "order": 8,
       "lastName": "Papas",
       "side": "partner1"
     },
@@ -545,7 +622,7 @@ const DATA = {
       "id": "wp08",
       "firstName": "Nicolas",
       "role": "Groomsman",
-      "order": 8,
+      "order": 9,
       "lastName": "Tasiopoulos",
       "side": "partner1"
     },
@@ -553,7 +630,7 @@ const DATA = {
       "id": "wp09",
       "firstName": "Dimitri",
       "role": "Groomsman",
-      "order": 9,
+      "order": 10,
       "lastName": "Dallas",
       "side": "partner1"
     },
@@ -561,16 +638,8 @@ const DATA = {
       "id": "wp10",
       "firstName": "Dino",
       "role": "Groomsman",
-      "order": 10,
-      "lastName": "Melitas",
-      "side": "partner1"
-    },
-    {
-      "id": "wp11",
-      "firstName": "George",
-      "role": "Groomsman",
       "order": 11,
-      "lastName": "Kokkinias",
+      "lastName": "Melitas",
       "side": "partner1"
     },
     {
@@ -589,6 +658,12 @@ const DATA = {
     }
   ],
   "faq": [
+    {
+      "id": "f_rsvp",
+      "question": "How do we RSVP?",
+      "answer": "Please fill out the RSVP card that arrived with your wedding invitation and put it in the mail as soon as you can.",
+      "category": "logistics"
+    },
     {
       "id": "f1",
       "question": "Can I bring kids?",
@@ -716,6 +791,10 @@ const DATA = {
     },
     "guestbook": false,
     "liveSongRequests": false
+  },
+  "registry": {
+    "intro": "We are simply grateful that you are making the trip. If you would like to give a gift, a registry is on the way and the link will appear here.",
+    "links": []
   }
 };
 
@@ -736,7 +815,7 @@ const _p = iso => {
 };
 const _dow = (y,mo,d) => DAYS[new Date(Date.UTC(y, mo-1, d)).getUTCDay()];
 const meridiemOf = h => h < 12 ? "in the morning" : (h < 17 ? "in the afternoon" : "in the evening");
-const clockOf = p => ((p.h % 12) || 12) + ":" + String(p.min).padStart(2,"0");
+const clockOf = p => ((p.h % 12) || 12) + ":" + String(p.min).padStart(2,"0") + (p.h < 12 ? "am" : "pm");
 const spokenTime = p =>
   (p.min === 0 ? ONES[p.h % 12] + " o'clock" : "half past " + ONES[p.h % 12]) + " " + meridiemOf(p.h);
 const formalWhen = iso => {
@@ -812,9 +891,9 @@ const W = {
   /* Photography not yet supplied. Each concept renders these as an
      intentional plate so the page never looks unfinished. */
   plates: {
-    hero:   { src: null, note: "Hero photograph â€” landscape, the two of them together." },
-    story:  { src: null, note: "Portrait â€” a favourite candid." },
-    detail: { src: null, note: "Detail â€” rings, flowers, or the venue." },
+    hero:   { src: null, note: "Hero photograph — landscape, the two of them together." },
+    story:  { src: null, note: "Portrait — a favourite candid." },
+    detail: { src: null, note: "Detail — rings, flowers, or the venue." },
     venue:  { src: null, note: "Park Ridge Country Club, exterior or terrace." }
   }
 };
@@ -826,7 +905,7 @@ const esc = s => String(s).replace(/[&<>"]/g, c =>
    PHOTOGRAPHY
    Photos are used as background layers behind whole sections at low
    opacity, not as inline boxes. To switch them on, paste a URL into
-   PHOTOS at the top of the concept file â€” nothing else changes.
+   PHOTOS at the top of the concept file — nothing else changes.
    Mirrors media[] in wedding.schema.json.
    =================================================================== */
 function scene(key, opacity) {
@@ -908,7 +987,7 @@ function initMotion() {
 }
 
 /* ===================================================================
-   DOCK â€” the navigation used by every concept. A floating segmented
+   DOCK — the navigation used by every concept. A floating segmented
    control at the bottom of the viewport. Styles are injected here so
    all three concepts stay identical; each file supplies the colours
    through the --dock-* variables in its own :root.
@@ -1002,17 +1081,82 @@ function initDock(sectionIds) {
   });
   activate(sectionIds[0]);
 }
+
+/* Honoured roles are named, not counted, so adding a fifth (Koumbaro)
+   does not depend on where it happens to sit in the list. */
+const HONOURED_ROLES = ["Koumbara","Koumbaro","Matron of Honor","Maid of Honor","Best Man"];
+W.party = DATA.party.map(m => ({
+  name: [m.firstName, m.lastName].filter(Boolean).join(" "),
+  role: m.role,
+  honored: HONOURED_ROLES.indexOf(m.role) !== -1
+}));
+W.registry = {
+  intro: (DATA.registry && DATA.registry.intro) || "",
+  links: (DATA.registry && DATA.registry.links) || []
+};
+delete W.contactEmail;
+
+/* How many empty frames the gallery draws before photographs exist. */
+const GALLERY_PLACEHOLDERS = 8;
+function galleryItems() {
+  const list = (typeof PHOTOS !== "undefined" && Array.isArray(PHOTOS.gallery)) ? PHOTOS.gallery : [];
+  if (list.length) return list.map((g, i) => ({ src: g.src || null, caption: g.caption || "", n: i + 1 }));
+  return Array.from({ length: GALLERY_PLACEHOLDERS }, (_, i) => ({ src: null, caption: "", n: i + 1 }));
+}
+function frame(item) {
+  if (item.src) return '<img src="' + esc(item.src) + '" alt="' + esc(item.caption || W.display) + '" loading="lazy">';
+  return '<span class="frame__empty"><b>' + String(item.n).padStart(2,"0") + '</b>Photograph</span>';
+}
+function registryHTML() {
+  if (!W.registry.links.length) {
+    return '<p class="registry__soon">A registry is on the way. The link will appear here as soon as it is ready.</p>';
+  }
+  return '<div class="registry__links">' + W.registry.links.map(l =>
+    '<a class="registry__link" href="' + esc(l.url) + '" target="_blank" rel="noopener">' + esc(l.name) + '</a>').join("") + '</div>';
+}
+function initLightbox(root) {
+  if (!root) return;
+  const items = galleryItems().filter(i => i.src);
+  if (!items.length) return;
+  const box = document.createElement("div");
+  box.className = "lightbox";
+  box.innerHTML = '<button class="lightbox__close" aria-label="Close">&times;</button>' +
+    '<button class="lightbox__nav lightbox__nav--prev" aria-label="Previous">&#8249;</button>' +
+    '<figure class="lightbox__stage"><img alt=""><figcaption></figcaption></figure>' +
+    '<button class="lightbox__nav lightbox__nav--next" aria-label="Next">&#8250;</button>';
+  document.body.appendChild(box);
+  const img = box.querySelector("img"), cap = box.querySelector("figcaption");
+  let at = 0;
+  const show = i => { at = (i + items.length) % items.length; img.src = items[at].src;
+    img.alt = items[at].caption || W.display; cap.textContent = items[at].caption || ""; };
+  const close = () => { box.classList.remove("is-open"); document.body.style.overflow = ""; };
+  root.addEventListener("click", e => {
+    const cell = e.target.closest("[data-shot]");
+    if (cell) { show(+cell.dataset.shot); box.classList.add("is-open"); document.body.style.overflow = "hidden"; }
+  });
+  box.querySelector(".lightbox__close").addEventListener("click", close);
+  box.querySelector(".lightbox__nav--prev").addEventListener("click", () => show(at - 1));
+  box.querySelector(".lightbox__nav--next").addEventListener("click", () => show(at + 1));
+  box.addEventListener("click", e => { if (e.target === box) close(); });
+  addEventListener("keydown", e => {
+    if (!box.classList.contains("is-open")) return;
+    if (e.key === "Escape") close();
+    if (e.key === "ArrowLeft") show(at - 1);
+    if (e.key === "ArrowRight") show(at + 1);
+  });
+}
+
 </script>
 <script>
 /* ===================================================================
-   PHOTOS â€” paste a URL beside each key and that background switches on.
+   PHOTOS — paste a URL beside each key and that background switches on.
    The hero image runs full-bleed behind the names. Null = plain ground.
    =================================================================== */
 const PHOTOS = {
-  hero:   null,   // e.g. "photos/hero.jpg"    â€” landscape works best here
-  story:  null,   // e.g. "photos/story.jpg"   â€” a candid
-  day:    null,   // e.g. "photos/venue.jpg"   â€” church or club
-  footer: null    // e.g. "photos/closing.jpg" â€” anything wide
+  hero:   null,   // e.g. "photos/hero.jpg"    — landscape works best here
+  story:  null,   // e.g. "photos/story.jpg"   — a candid
+  day:    null,   // e.g. "photos/venue.jpg"   — church or club
+  footer: null    // e.g. "photos/closing.jpg" — anything wide
 };
 
 const $ = id => document.getElementById(id);
@@ -1047,7 +1191,6 @@ $("slots").innerHTML = W.events.map((e, i) => `
   <li class="slot" data-reveal style="--i:${i}">
     <div>
       <p class="slot__hour">${esc(e.clock)}</p>
-      <p class="slot__mer">${esc(e.meridiem)}</p>
     </div>
     <div class="slot__body">
       <h3>${esc(e.name)}</h3>
@@ -1060,6 +1203,31 @@ $("slots").innerHTML = W.events.map((e, i) => `
     </div>
   </li>`).join("");
 $("attire").textContent = W.attire;
+
+const shots = galleryItems();
+$("gallery").innerHTML = shots.map((g, i) =>
+  '<figure data-shot="' + i + '">' + frame(g) + "</figure>").join("");
+$("stripCount").innerHTML = "<b>" + String(shots.length).padStart(2,"0") + "</b> frames";
+$("registry-body").innerHTML = "<p>" + esc(W.registry.intro) + "</p>" + registryHTML();
+
+/* drag to scroll the filmstrip, for anyone without a trackpad */
+(function dragStrip(){
+  const strip = $("gallery");
+  let down = false, startX = 0, startLeft = 0, moved = 0;
+  strip.addEventListener("pointerdown", e => {
+    down = true; moved = 0; startX = e.clientX; startLeft = strip.scrollLeft;
+    strip.classList.add("is-dragging");
+  });
+  addEventListener("pointerup", () => { down = false; strip.classList.remove("is-dragging"); });
+  strip.addEventListener("pointermove", e => {
+    if (!down) return;
+    const dx = e.clientX - startX;
+    moved = Math.max(moved, Math.abs(dx));
+    strip.scrollLeft = startLeft - dx;
+  });
+  /* a drag should not also open the lightbox */
+  strip.addEventListener("click", e => { if (moved > 6) e.stopPropagation(); }, true);
+})();
 $("countdown").innerHTML = left > 0
   ? "<b>" + left + "</b>day" + (left === 1 ? "" : "s") + " to go"
   : (left === 0 ? "<b>Today</b>" : "<b>&mdash;</b>married");
@@ -1085,9 +1253,8 @@ $("faqList").innerHTML = W.faq.map(f => `
   </div>`).join("");
 
 $("fNames").innerHTML = esc(W.legalNames[0]) + "<br>" + esc(W.legalNames[1]);
-$("fDate").textContent = W.date.medium + " â€” " + W.locality;
-$("fContact").innerHTML =
-  '<a href="mailto:' + esc(W.contactEmail) + '">' + esc(W.contactEmail) + "</a>";
+$("fDate").textContent = W.date.medium + " — " + W.locality;
+$("fContact").textContent = daysUntil() > 0 ? daysUntil() + " days to go" : "";
 
 /* ---------- behaviour ---------- */
 const setPanel = (item, open) => {
@@ -1127,7 +1294,8 @@ function initStoryFocus() {
 paintScenes();
 initStoryFocus();
 initMotion();
-initDock(["story","day","party","questions"]);
+initDock(["story","day","party","gallery-sec","registry","questions"]);
+initLightbox($("gallery"));
 requestAnimationFrame(() => document.body.classList.add("is-loaded"));
 </script>
 </body>
