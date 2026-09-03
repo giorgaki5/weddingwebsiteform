@@ -199,6 +199,38 @@ img{max-width:100%;display:block}
 .attire h3{margin:0 0 .5rem;font-family:var(--display);font-weight:400;font-size:1.375rem}
 .attire p{margin:0;font-size:1rem;color:var(--muted)}
 
+/* ---------- wedding party: portrait plates ---------- */
+.avatar{display:block;overflow:hidden;background:var(--panel);position:relative;
+  border:1px solid var(--rule);transition:border-color .45s var(--ease)}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.avatar__mark{width:100%;height:100%;display:block;fill:#CFC6A8}
+
+/* the five honoured roles run large, across the top */
+.honours{display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(.75rem,2vw,1.5rem);
+  margin:0 0 clamp(2.5rem,6vw,4rem);padding:0;list-style:none;border:0}
+.honour{display:block;border:0;padding:0}
+.honour:hover{padding-left:0}
+.honour .avatar{aspect-ratio:3/4;margin-bottom:.85rem}
+.honour:hover .avatar{border-color:var(--gold)}
+.honour__name{margin:0;font-family:var(--display);font-weight:400;
+  font-size:clamp(.9375rem,1.9vw,1.25rem);line-height:1.2;letter-spacing:-.01em}
+.honour__role{margin:.35rem 0 0;font-size:.5625rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--gold)}
+@media (max-width:820px){.honours{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:520px){.honours{grid-template-columns:repeat(2,1fr)}}
+
+/* everyone else, smaller, in a wide grid */
+.roster{columns:auto;display:grid;grid-template-columns:repeat(4,1fr);
+  gap:clamp(1rem,2.5vw,1.75rem);padding-top:1.75rem;border-top:1px solid var(--ink)}
+@media (max-width:820px){.roster{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:520px){.roster{grid-template-columns:repeat(2,1fr)}}
+.member{border-bottom:0;padding-block:0}
+.member .avatar{aspect-ratio:1;margin-bottom:.6rem}
+.member:hover .avatar{border-color:var(--gold)}
+.member__name{font-size:.9375rem;line-height:1.3}
+.member__role{font-size:.5625rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--muted);margin-top:.2rem}
+
 /* ---------- wedding party ---------- */
 .honours{margin:0 0 clamp(2rem,5vw,3rem);padding:0;list-style:none}
 .honour{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;
@@ -1147,6 +1179,25 @@ function initLightbox(root) {
   });
 }
 
+
+/* ---------- headshots ---------- */
+/* PHOTOS.party is keyed by the name exactly as it appears in the JSON.
+   Until a file is supplied, an inline silhouette is drawn instead — no
+   external image, so nothing can 404 and there is no licence to worry about. */
+function silhouette() {
+  return '<svg class="avatar__mark" viewBox="0 0 100 100" role="img" aria-hidden="true">' +
+         '<circle cx="50" cy="37" r="16"/>' +
+         '<path d="M50 58c-16.5 0-30 11.8-32 27.5h64C80 69.8 66.5 58 50 58z"/>' +
+         '</svg>';
+}
+function avatar(m) {
+  const src = (typeof PHOTOS !== "undefined" && PHOTOS.party && PHOTOS.party[m.name]) || null;
+  return '<span class="avatar">' +
+         (src ? '<img src="' + esc(src) + '" alt="' + esc(m.name) + '" loading="lazy">'
+              : silhouette()) +
+         '</span>';
+}
+
 </script>
 <script>
 /* ===================================================================
@@ -1157,7 +1208,11 @@ const PHOTOS = {
   hero:   null,   // e.g. "photos/hero.jpg"    — landscape works best here
   story:  null,   // e.g. "photos/story.jpg"   — a candid
   day:    null,   // e.g. "photos/venue.jpg"   — church or club
-  footer: null    // e.g. "photos/closing.jpg" — anything wide
+  footer: null,   // e.g. "photos/closing.jpg" — anything wide
+  /* headshots, keyed by name exactly as written in the JSON */
+  party: {
+    // "Penelope Kokkinias": "photos/party/penelope.jpg",
+  }    // e.g. "photos/closing.jpg" — anything wide
 };
 
 const $ = id => document.getElementById(id);
@@ -1220,11 +1275,13 @@ const rest = W.party.filter(m => !m.honored);
 $("partyCount").textContent = W.party.length + " of them";
 $("honours").innerHTML = honoured.map(m => `
   <li class="honour">
+    ${avatar(m)}
     <p class="honour__name">${esc(m.name)}</p>
     <p class="honour__role">${esc(m.role)}</p>
   </li>`).join("");
 $("roster").innerHTML = rest.map(m => `
   <div class="member">
+    ${avatar(m)}
     <p class="member__name">${esc(m.name)}</p>
     <p class="member__role">${esc(m.role)}</p>
   </div>`).join("");

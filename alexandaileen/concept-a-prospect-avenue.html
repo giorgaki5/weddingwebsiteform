@@ -267,6 +267,23 @@ img{max-width:100%;display:block}
 .strip__meta b{font-size:1.25rem;letter-spacing:.04em;color:var(--ink);
   text-transform:none;font-weight:400}
 
+/* ============ party: circular portraits ============ */
+.faces{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(1.5rem,4vw,2.25rem) 1rem}
+@media (min-width:560px){.faces{grid-template-columns:repeat(3,1fr)}}
+.face{text-align:center}
+.avatar{display:block;width:clamp(4.5rem,17vw,6.5rem);aspect-ratio:1;margin:0 auto .85rem;
+  border-radius:50%;overflow:hidden;background:var(--tonal);
+  border:1px solid var(--rule);position:relative;
+  transition:border-color .45s var(--ease),transform .45s var(--ease)}
+.face:hover .avatar{border-color:var(--gold);transform:translateY(-3px)}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.avatar__mark{width:100%;height:100%;display:block;fill:#C9BC9C}
+.face--honored .avatar{border-color:var(--gold-soft,rgba(209,157,1,.45))}
+.face__name{margin:0;font-size:1rem;line-height:1.35}
+.face__role{margin:.25rem 0 0;font-family:var(--display);font-size:.6875rem;
+  letter-spacing:.18em;color:var(--muted)}
+.face--honored .face__role{color:var(--gold)}
+
 /* ============ party ============ */
 .member{padding-block:.95rem;border-bottom:1px solid var(--hair);transition:padding-left .35s var(--ease)}
 .member:first-child{border-top:1px solid var(--rule)}
@@ -364,7 +381,7 @@ img{max-width:100%;display:block}
     <div class="column">
       <h2 class="section__title" id="party-t" data-reveal>Standing With Us</h2>
       <hr class="divider" data-reveal>
-      <div id="party-list" data-reveal></div>
+      <div class="faces" id="party-list" data-reveal></div>
     </div>
   </section>
 
@@ -1152,6 +1169,25 @@ function initLightbox(root) {
   });
 }
 
+
+/* ---------- headshots ---------- */
+/* PHOTOS.party is keyed by the name exactly as it appears in the JSON.
+   Until a file is supplied, an inline silhouette is drawn instead — no
+   external image, so nothing can 404 and there is no licence to worry about. */
+function silhouette() {
+  return '<svg class="avatar__mark" viewBox="0 0 100 100" role="img" aria-hidden="true">' +
+         '<circle cx="50" cy="37" r="16"/>' +
+         '<path d="M50 58c-16.5 0-30 11.8-32 27.5h64C80 69.8 66.5 58 50 58z"/>' +
+         '</svg>';
+}
+function avatar(m) {
+  const src = (typeof PHOTOS !== "undefined" && PHOTOS.party && PHOTOS.party[m.name]) || null;
+  return '<span class="avatar">' +
+         (src ? '<img src="' + esc(src) + '" alt="' + esc(m.name) + '" loading="lazy">'
+              : silhouette()) +
+         '</span>';
+}
+
 </script>
 <script>
 /* ===================================================================
@@ -1162,7 +1198,11 @@ const PHOTOS = {
   hero:   null,   // e.g. "photos/hero.jpg"    — landscape, the two of them
   story:  null,   // e.g. "photos/story.jpg"   — a candid
   day:    null,   // e.g. "photos/venue.jpg"   — church or club
-  footer: null    // e.g. "photos/closing.jpg" — anything wide
+  footer: null,   // e.g. "photos/closing.jpg" — anything wide
+  /* headshots, keyed by name exactly as written in the JSON */
+  party: {
+    // "Penelope Kokkinias": "photos/party/penelope.jpg",
+  }    // e.g. "photos/closing.jpg" — anything wide
 };
 
 const $ = id => document.getElementById(id);
@@ -1223,9 +1263,10 @@ $("stripCount").innerHTML = "<b>" + String(shots.length).padStart(2,"0") + "</b>
 $("registry-body").innerHTML = "<p>" + esc(W.registry.intro) + "</p>" + registryHTML();
 
 $("party-list").innerHTML = W.party.map(m => `
-  <div class="member${m.honored ? " member--honored" : ""}">
-    <p class="member__name">${esc(m.name)}</p>
-    <p class="member__role">${esc(m.role.toUpperCase())}</p>
+  <div class="face${m.honored ? " face--honored" : ""}">
+    ${avatar(m)}
+    <p class="face__name">${esc(m.name)}</p>
+    <p class="face__role">${esc(m.role.toUpperCase())}</p>
   </div>`).join("");
 
 $("faq-list").innerHTML = W.faq.map(f => `
