@@ -237,24 +237,35 @@ img{max-width:100%;display:block}
   padding:.8rem 1.75rem;transition:background .35s var(--ease),color .35s,border-color .35s}
 .registry__link:hover{background:var(--ink);color:var(--surface);border-color:var(--ink)}
 
-/* ============ gallery: framed prints, hung ============ */
-.gallery{display:grid;gap:clamp(1.5rem,4vw,2.75rem)}
-.frame{position:relative;margin:0;cursor:pointer;background:var(--tonal);
-  border:1px solid var(--rule);padding:clamp(.6rem,1.5vw,.9rem);
-  transition:transform .5s var(--ease),box-shadow .5s var(--ease),border-color .5s var(--ease)}
-.frame::after{content:"";position:absolute;inset:clamp(.6rem,1.5vw,.9rem);
-  border:1px solid var(--gold);opacity:.3;pointer-events:none}
-.frame:hover{transform:translateY(-4px);border-color:var(--gold);
-  box-shadow:0 22px 46px -32px rgba(0,0,0,.45)}
-.frame > img,.frame > .frame__empty{display:block;width:100%;aspect-ratio:4/5;object-fit:cover}
-.frame--wide > img,.frame--wide > .frame__empty{aspect-ratio:3/2}
-.frame__empty{display:grid;place-content:center;text-align:center;gap:.35rem;
-  font-family:var(--display);font-size:.6875rem;letter-spacing:.22em;text-transform:uppercase;
-  color:#8A7C5F;background:linear-gradient(155deg,#F1E7D1 0%,#E4D8BC 100%)}
+/* ============ gallery: a filmstrip, running off the page edge ============ */
+.strip{display:flex;gap:clamp(.6rem,1.5vw,1rem);overflow-x:auto;
+  scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:1.25rem;
+  padding-left:var(--gutter);scrollbar-width:none;-ms-overflow-style:none;cursor:grab}
+.strip::-webkit-scrollbar{display:none}
+.strip.is-dragging{cursor:grabbing;scroll-snap-type:none}
+.strip figure{margin:0;flex:0 0 auto;width:clamp(14rem,32vw,21rem);aspect-ratio:4/5;
+  position:relative;overflow:hidden;background:var(--tonal);scroll-snap-align:start;
+  cursor:pointer;border:1px solid var(--rule);padding:clamp(.5rem,1.2vw,.75rem);
+  transition:border-color .5s var(--ease)}
+.strip figure::after{content:"";position:absolute;inset:clamp(.5rem,1.2vw,.75rem);
+  border:1px solid var(--gold);opacity:.28;pointer-events:none;z-index:2}
+.strip figure:hover{border-color:var(--gold)}
+.strip figure:last-child{margin-right:var(--gutter)}
+.strip figure > img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.strip figure:hover > img{transform:scale(1.04)}
+.frame__empty{width:100%;height:100%;display:grid;place-content:center;text-align:center;gap:.35rem;
+  background:linear-gradient(155deg,#F1E7D1 0%,#E4D8BC 100%);
+  font-family:var(--display);font-size:.6875rem;letter-spacing:.22em;
+  text-transform:uppercase;color:#8A7C5F}
 .frame__empty b{display:block;font-size:1.75rem;letter-spacing:-.01em;
   text-transform:none;font-weight:400;color:var(--gold)}
-@media (min-width:760px){.gallery{grid-template-columns:repeat(2,1fr)}
-  .frame--wide{grid-column:1 / -1}}
+.strip__meta{max-width:41rem;margin:1.25rem auto 0;padding:1rem var(--gutter) 0;
+  border-top:1px solid var(--hair);display:flex;justify-content:space-between;
+  align-items:baseline;gap:1rem;font-family:var(--display);font-size:.75rem;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.strip__meta p{margin:0}
+.strip__meta b{font-size:1.25rem;letter-spacing:.04em;color:var(--ink);
+  text-transform:none;font-weight:400}
 
 /* ============ party ============ */
 .member{padding-block:.95rem;border-bottom:1px solid var(--hair);transition:padding-left .35s var(--ease)}
@@ -361,7 +372,11 @@ img{max-width:100%;display:block}
     <div class="column">
       <h2 class="section__title" id="g-t" data-reveal>Photographs</h2>
       <hr class="divider" data-reveal>
-      <div class="gallery" id="gallery" data-reveal></div>
+    </div>
+    <div class="strip" id="gallery"></div>
+    <div class="strip__meta">
+      <p id="stripCount"></p>
+      <p>Drag or swipe</p>
     </div>
   </section>
 
@@ -1183,9 +1198,28 @@ $("timeline").innerHTML = W.events.map((e, i) => `
   </article>`).join("");
 $("attire").textContent = W.attire;
 
-$("gallery").innerHTML = galleryItems().map((g, i) =>
-  '<figure class="frame' + (i % 3 === 0 ? " frame--wide" : "") + '" data-shot="' + i + '">' +
-  frame(g) + "</figure>").join("");
+const shots = galleryItems();
+$("gallery").innerHTML = shots.map((g, i) =>
+  '<figure data-shot="' + i + '">' + frame(g) + "</figure>").join("");
+$("stripCount").innerHTML = "<b>" + String(shots.length).padStart(2,"0") + "</b> frames";
+
+/* drag to scroll the filmstrip, for anyone without a trackpad */
+(function dragStrip(){
+  const strip = $("gallery");
+  let down = false, startX = 0, startLeft = 0, moved = 0;
+  strip.addEventListener("pointerdown", e => {
+    down = true; moved = 0; startX = e.clientX; startLeft = strip.scrollLeft;
+    strip.classList.add("is-dragging");
+  });
+  addEventListener("pointerup", () => { down = false; strip.classList.remove("is-dragging"); });
+  strip.addEventListener("pointermove", e => {
+    if (!down) return;
+    const dx = e.clientX - startX;
+    moved = Math.max(moved, Math.abs(dx));
+    strip.scrollLeft = startLeft - dx;
+  });
+  strip.addEventListener("click", e => { if (moved > 6) e.stopPropagation(); }, true);
+})();
 $("registry-body").innerHTML = "<p>" + esc(W.registry.intro) + "</p>" + registryHTML();
 
 $("party-list").innerHTML = W.party.map(m => `
