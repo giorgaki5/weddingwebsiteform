@@ -84,16 +84,18 @@ img{max-width:100%;display:block}
 
 /* SCENE — photography as background layers (see PHOTOS in the script) */
 .scene{position:absolute;inset:0;overflow:hidden;z-index:0;pointer-events:none}
-.scene__img{position:absolute;inset:-12%;background-size:cover;background-position:center;
+.scene__img{position:absolute;inset:-12%;transition:opacity 1.3s var(--ease);background-size:cover;background-position:center;
   filter:saturate(.9) contrast(1.02);will-change:transform;transform:scale(1.12)}
 .scene__veil{position:absolute;inset:0}
 .scene-host{position:relative;isolation:isolate}
 .scene-host > *:not(.scene){position:relative;z-index:1}
-.hero .scene__veil{background:radial-gradient(120% 85% at 50% 0%, rgba(251,246,234,.5) 0%, rgba(251,246,234,.92) 55%, var(--ground) 100%)}
+.hero .scene__veil{background:radial-gradient(120% 85% at 50% 0%, rgba(251,246,234,.32) 0%, rgba(251,246,234,.72) 55%, var(--ground) 100%)}
 .hero .scene--empty .scene__veil{background:none}
-#day .scene__veil{background:linear-gradient(to bottom,var(--ground) 0%,rgba(251,246,234,.88) 28%,rgba(251,246,234,.88) 72%,var(--ground) 100%)}
+#story .scene__veil{background:linear-gradient(to bottom,var(--ground) 0%,rgba(251,246,234,.66) 20%,rgba(251,246,234,.66) 80%,var(--ground) 100%)}
+#story .scene--empty .scene__veil{background:none}
+#day .scene__veil{background:linear-gradient(to bottom,var(--ground) 0%,rgba(251,246,234,.6) 24%,rgba(251,246,234,.6) 72%,var(--ground) 100%)}
 #day .scene--empty .scene__veil{background:var(--surface);opacity:.55}
-.footer .scene__veil{background:linear-gradient(to bottom,rgba(251,246,234,.9),var(--ground))}
+.footer .scene__veil{background:linear-gradient(to bottom,rgba(251,246,234,.6),var(--ground))}
 .footer .scene--empty .scene__veil{background:none}
 
 /* ============ hero ============ */
@@ -344,7 +346,7 @@ img{max-width:100%;display:block}
 
 
 
-<header class="hero scene-host" id="hero" data-scene="hero" data-scene-opacity=".38">
+<header class="hero scene-host" id="hero" data-scene="hero" data-scene-opacity=".6">
   <div class="card">
     <h1 class="card__names" id="names"></h1>
     <hr class="divider is-in">
@@ -355,7 +357,7 @@ img{max-width:100%;display:block}
 </header>
 
 <main>
-  <section class="section" id="story" aria-labelledby="story-t">
+  <section class="section scene-host" id="story" aria-labelledby="story-t" data-scene="story" data-scene-opacity=".34">
     <div class="column">
       <h2 class="section__title" id="story-t" data-reveal></h2>
       <hr class="divider" data-reveal>
@@ -364,7 +366,7 @@ img{max-width:100%;display:block}
     </div>
   </section>
 
-  <section class="section scene-host" id="day" data-scene="day" data-scene-opacity=".09" aria-labelledby="day-t">
+  <section class="section scene-host" id="day" data-scene="day" data-scene-opacity=".26" aria-labelledby="day-t">
     <div class="column">
       <h2 class="section__title" id="day-t" data-reveal>The Day</h2>
       <hr class="divider" data-reveal>
@@ -414,7 +416,7 @@ img{max-width:100%;display:block}
   </section>
 </main>
 
-<footer class="footer scene-host" data-scene="footer" data-scene-opacity=".22">
+<footer class="footer scene-host" data-scene="footer" data-scene-opacity=".4">
   <p class="footer__names" id="f-names" data-reveal></p>
   <hr class="divider" data-reveal>
   <p class="footer__meta" id="f-meta" data-reveal></p>
@@ -909,14 +911,6 @@ const W = {
 
   faq: DATA.faq.map(f => ({ q: f.question, a: f.answer })),
 
-  /* Photography not yet supplied. Each concept renders these as an
-     intentional plate so the page never looks unfinished. */
-  plates: {
-    hero:   { src: null, note: "Hero photograph — landscape, the two of them together." },
-    story:  { src: null, note: "Portrait — a favourite candid." },
-    detail: { src: null, note: "Detail — rings, flowers, or the venue." },
-    venue:  { src: null, note: "Park Ridge Country Club, exterior or terrace." }
-  }
 };
 
 const esc = s => String(s).replace(/[&<>"]/g, c =>
@@ -930,7 +924,8 @@ const esc = s => String(s).replace(/[&<>"]/g, c =>
    Mirrors media[] in wedding.schema.json.
    =================================================================== */
 function scene(key, opacity) {
-  const src = (typeof PHOTOS !== "undefined" && PHOTOS[key]) || null;
+  const val = (typeof PHOTOS !== "undefined" && PHOTOS[key]) || null;
+  const src = Array.isArray(val) ? val[0] : val;
   return '<div class="scene' + (src ? "" : " scene--empty") + '" aria-hidden="true">' +
          (src ? '<div class="scene__img" style="background-image:url(&quot;' +
                 encodeURI(src).replace(/"/g, "%22") +
@@ -1168,11 +1163,9 @@ function initLightbox(root) {
   });
 }
 
-
 /* ---------- headshots ---------- */
 /* PHOTOS.party is keyed by the name exactly as it appears in the JSON.
-   Until a file is supplied, an inline silhouette is drawn instead — no
-   external image, so nothing can 404 and there is no licence to worry about. */
+   Until a file is supplied, an inline silhouette is drawn instead. */
 function silhouette() {
   return '<svg class="avatar__mark" viewBox="0 0 100 100" role="img" aria-hidden="true">' +
          '<circle cx="50" cy="37" r="16"/>' +
@@ -1187,21 +1180,77 @@ function avatar(m) {
          '</span>';
 }
 
+
+/* ---------- story backdrop ----------
+   When PHOTOS.story is an array, the story background changes as you move
+   through the chapters, crossfading between two stacked layers. Runs off its
+   own observer so it needs no hook into the chapter-focus code. */
+function initStoryBackdrop() {
+  const list = (typeof PHOTOS !== "undefined" && Array.isArray(PHOTOS.story)) ? PHOTOS.story : null;
+  if (!list || list.length < 2) return;
+  const host = document.querySelector("#story .scene");
+  if (!host) return;
+  const base = host.querySelector(".scene__img");
+  if (!base) return;
+
+  const op = base.style.opacity || "0.3";
+  const alt = base.cloneNode(false);
+  alt.style.opacity = "0";
+  host.insertBefore(alt, base.nextSibling);
+
+  let front = base, back = alt, at = 0;
+  const show = i => {
+    i = ((i % list.length) + list.length) % list.length;
+    if (i === at) return;
+    at = i;
+    back.style.backgroundImage = 'url("' + encodeURI(list[i]) + '")';
+    back.style.opacity = op;
+    front.style.opacity = "0";
+    const t = front; front = back; back = t;
+  };
+
+  const items = [...document.querySelectorAll("#story .chapter, #story .year")];
+  if (!items.length || REDUCED || !("IntersectionObserver" in window)) return;
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) show(items.indexOf(e.target));
+  }), { rootMargin: "-45% 0px -45% 0px" });
+  items.forEach(el => io.observe(el));
+}
+
 </script>
 <script>
-/* ===================================================================
-   PHOTOS — paste a URL beside each key and that section's background
-   switches on. Leave null and it falls back to a tonal wash.
-   =================================================================== */
 const PHOTOS = {
-  hero:   null,   // e.g. "photos/hero.jpg"    — landscape, the two of them
-  story:  null,   // e.g. "photos/story.jpg"   — a candid
-  day:    null,   // e.g. "photos/venue.jpg"   — church or club
-  footer: null,   // e.g. "photos/closing.jpg" — anything wide
-  /* headshots, keyed by name exactly as written in the JSON */
+
+  /* 1. SECTION BACKGROUNDS — each sits behind a colour veil at low opacity. */
+  hero:   "photos/gallery/11.jpg",
+  story:  [
+    "photos/gallery/01.jpg",
+    "photos/gallery/02.jpg",
+    "photos/gallery/05.jpg",
+    "photos/gallery/08.jpg"
+  ],
+  day:    null,
+  footer: "photos/gallery/09.jpg",
+
+  /* 2. GALLERY — order here is the order shown; caption appears in the lightbox. */
+  gallery: [
+    { src: "photos/gallery/01.jpg", caption: "Year One" },
+    { src: "photos/gallery/02.jpg", caption: "Year Two" },
+    { src: "photos/gallery/03.jpg", caption: "Year Three" },
+    { src: "photos/gallery/04.jpg", caption: "Year Four" },
+    { src: "photos/gallery/05.jpg", caption: "Year Five" },
+    { src: "photos/gallery/06.jpg", caption: "Year Six" },
+    { src: "photos/gallery/07.jpg", caption: "Year Seven" },
+    { src: "photos/gallery/08.jpg", caption: "Year Eight" },
+    { src: "photos/gallery/09.jpg", caption: "Year Nine" },
+    { src: "photos/gallery/10.jpg", caption: "Year Ten" },
+  ],
+
+  /* 3. HEADSHOTS — keyed by the name exactly as written in alex-and-aileen.json.
+        Anyone left out keeps the silhouette. */
   party: {
     // "Penelope Kokkinias": "photos/party/penelope.jpg",
-  }    // e.g. "photos/closing.jpg" — anything wide
+  }
 };
 
 const $ = id => document.getElementById(id);
@@ -1299,6 +1348,7 @@ function initStoryFocus() {
 
 initStoryFocus();
 paintScenes();
+initStoryBackdrop();
 initMotion();
 initDock(["story","day","party","gallery-sec","registry","questions"]);
 initLightbox($("gallery"));
