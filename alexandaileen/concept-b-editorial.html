@@ -107,17 +107,18 @@ img{max-width:100%;display:block}
 /* SCENE — photography as background layers (see PHOTOS in the script) */
 .scene{position:absolute;inset:0;overflow:hidden;z-index:0;pointer-events:none}
 .scene__img{position:absolute;inset:-12%;transition:opacity 1.3s var(--ease);background-size:cover;background-position:center;
-  filter:saturate(.9) contrast(1.02);will-change:transform;transform:scale(1.12)}
+  filter:saturate(.9) contrast(1.02);will-change:transform;transform:scale(1.05)}
 .scene__veil{position:absolute;inset:0}
+.footer .scene__img{inset:-6%}
 .scene-host{position:relative;isolation:isolate}
 .scene-host > *:not(.scene){position:relative;z-index:1}
-.hero .scene__veil{background:radial-gradient(115% 80% at 65% 10%, rgba(251,247,236,.3) 0%, rgba(251,247,236,.7) 55%, var(--ground) 100%)}
+.hero .scene__veil{background:radial-gradient(115% 80% at 65% 10%, rgba(251,247,236,.2) 0%, rgba(251,247,236,.55) 55%, var(--ground) 100%)}
 .hero .scene--empty .scene__veil{background:radial-gradient(115% 80% at 65% 10%, var(--paper) 0%, var(--ground) 62%)}
 #story .scene__veil{background:linear-gradient(to bottom,var(--ground) 0%,rgba(251,247,236,.66) 20%,rgba(251,247,236,.66) 80%,var(--ground) 100%)}
 #story .scene--empty .scene__veil{background:none}
 #day .scene__veil{background:linear-gradient(to bottom,var(--ground) 0%,rgba(251,247,236,.6) 22%,rgba(251,247,236,.6) 74%,var(--ground) 100%)}
 #day .scene--empty .scene__veil{background:var(--paper);opacity:.5}
-.footer .scene__veil{background:linear-gradient(to bottom,rgba(241,233,216,.58),var(--paper))}
+.footer .scene__veil{background:linear-gradient(to bottom,rgba(241,233,216,.45),var(--paper))}
 .footer .scene--empty .scene__veil{background:none}
 
 /* ============ story ============ */
@@ -365,7 +366,7 @@ img{max-width:100%;display:block}
 
 
 <div id="top">
-  <header class="hero scene-host" data-scene="hero" data-scene-opacity=".6">
+  <header class="hero scene-host" data-scene="hero" data-scene-opacity=".72" data-scene-position="center 35%">
     <div class="hero__type">
       <h1 id="names"></h1>
       <div class="hero__meta">
@@ -437,7 +438,7 @@ img{max-width:100%;display:block}
     </section>
   </main>
 
-  <footer class="footer scene-host" data-scene="footer" data-scene-opacity=".4">
+  <footer class="footer scene-host" data-scene="footer" data-scene-opacity=".72" data-scene-position="center 75%" data-scene-zoom="0.95">
     <h2 id="fNames" data-reveal></h2>
     <p id="fMeta" data-reveal></p>
   </footer>
@@ -944,13 +945,16 @@ const esc = s => String(s).replace(/[&<>"]/g, c =>
    PHOTOS at the top of the concept file — nothing else changes.
    Mirrors media[] in wedding.schema.json.
    =================================================================== */
-function scene(key, opacity) {
+function scene(key, opacity, position, zoom) {
   const val = (typeof PHOTOS !== "undefined" && PHOTOS[key]) || null;
   const src = Array.isArray(val) ? val[0] : val;
+  const pos = position || "center";
   return '<div class="scene' + (src ? "" : " scene--empty") + '" aria-hidden="true">' +
          (src ? '<div class="scene__img" style="background-image:url(&quot;' +
                 encodeURI(src).replace(/"/g, "%22") +
-                '&quot;);opacity:' + (opacity || .14) + '"></div>' : "") +
+                '&quot;);opacity:' + (opacity || .14) +
+                ';background-position:' + pos +
+                ';--zoom:' + (zoom || "1.05") + '"></div>' : "") +
          '<div class="scene__veil"></div></div>';
 }
 
@@ -958,7 +962,7 @@ function paintScenes() {
   document.querySelectorAll("[data-scene]").forEach(host => {
     const key = host.dataset.scene;
     const op = parseFloat(host.dataset.sceneOpacity || ".14");
-    host.insertAdjacentHTML("afterbegin", scene(key, op));
+    host.insertAdjacentHTML("afterbegin", scene(key, op, host.dataset.scenePosition, host.dataset.sceneZoom));
   });
 }
 
@@ -1013,7 +1017,8 @@ function initMotion() {
       const r = p.getBoundingClientRect();
       if (r.bottom < -300 || r.top > innerHeight + 300) return;
       const mid = (r.top + r.height / 2 - innerHeight / 2) / innerHeight;
-      p.style.transform = "scale(1.12) translateY(" + (mid * -40).toFixed(1) + "px)";
+      const z = p.style.getPropertyValue("--zoom") || "1.05";
+      p.style.transform = "scale(" + z + ") translateY(" + (mid * -28).toFixed(1) + "px)";
     });
     raf = false;
   };
