@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>REPLACE — Three Directions</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Archivo:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ground:#FBF6EA;--paper:#F2EADA;--ink:#000;--gold:#D19D01;--muted:#7C7263;
+  --hair:rgba(0,0,0,.09);--rule:rgba(0,0,0,.16);
+  --serif:"EB Garamond",Georgia,serif;--sans:"Archivo",-apple-system,sans-serif;
+  --ease:cubic-bezier(.16,.84,.44,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;overflow-x:hidden;background:var(--ground);color:var(--ink);font-family:var(--sans);
+  font-size:1rem;line-height:1.7;-webkit-font-smoothing:antialiased}
+:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+.wrap{max-width:62rem;margin-inline:auto;padding:clamp(3rem,9vw,6.5rem) clamp(1.25rem,5vw,3rem)}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.25rem,6vw,3.5rem);line-height:1.05;margin:0 0 .75rem}
+h1 em{font-style:italic;color:var(--gold)}
+.sub{font-family:var(--serif);font-style:italic;font-size:1.25rem;color:var(--muted);margin:0 0 1rem;max-width:44rem}
+.note{font-size:.9375rem;color:var(--muted);margin:0 0 3.5rem;max-width:44rem}
+
+.card{
+  display:grid;grid-template-columns:1fr;
+  border:1px solid var(--rule);background:var(--paper);
+  margin-bottom:clamp(1.25rem,3vw,2rem);overflow:hidden;
+  opacity:0;transform:translateY(20px);
+  transition:opacity .9s var(--ease),transform .9s var(--ease),border-color .4s,box-shadow .4s;
+}
+.card.is-in{opacity:1;transform:none}
+.card:hover{border-color:rgba(209,157,1,.5);box-shadow:0 20px 44px -30px rgba(0,0,0,.35)}
+.card__band{display:flex;gap:0;height:.5rem}
+.sw{flex:1}
+.card__body{padding:clamp(1.75rem,4vw,2.75rem);display:grid;
+  grid-template-columns:1fr auto;gap:1.5rem 2rem;align-items:end}
+@media (max-width:680px){.card__body{grid-template-columns:1fr}}
+.card h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.75rem,4vw,2.5rem);
+  margin:0 0 .35rem;line-height:1.1}
+.card__opt{font-size:.6875rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin:0 0 .5rem}
+.card__opt .rec{color:var(--ink)}
+.points{list-style:none;margin:.9rem 0 0;padding:0}
+.points li{position:relative;padding-left:1rem;font-size:.9375rem;line-height:1.6;
+  color:#3a352e;margin-bottom:.2rem}
+.points li::before{content:"";position:absolute;left:0;top:.72em;
+  width:.3rem;height:1px;background:var(--gold)}
+.points li:last-child{color:var(--muted);font-style:italic}
+@media (max-width:680px){
+  .card__body{padding:1.5rem 1.35rem}
+  .view{display:block;text-align:center;padding:.85rem 1rem}
+  .wrap{padding-inline:1.25rem}
+}
+.card p.desc{margin:0;max-width:38rem;color:#3a352e}
+.view{display:inline-block;font-family:var(--serif);font-size:1.125rem;white-space:nowrap;
+  text-decoration:none;color:var(--ink);border:1px solid var(--rule);
+  padding:.7rem 1.6rem;transition:background .35s var(--ease),color .35s,border-color .35s}
+.view:hover{background:var(--ink);color:var(--ground);border-color:var(--ink)}
+footer{border-top:1px solid var(--rule);padding-top:2rem;margin-top:1.5rem;
+  font-size:.8125rem;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){.card{opacity:1!important;transform:none!important}}
+
+.lightbox{position:fixed;inset:0;z-index:200;display:none;place-items:center;
+  background:rgba(0,0,0,.92);padding:clamp(1rem,5vw,3rem)}
+.lightbox.is-open{display:grid}
+.lightbox__stage{margin:0;max-width:min(74rem,92vw);display:flex;flex-direction:column;
+  align-items:center;gap:1rem}
+.lightbox__stage img{max-width:100%;max-height:78vh;object-fit:contain}
+.lightbox__stage figcaption{color:rgba(255,255,255,.72);font-size:.875rem;text-align:center}
+.lightbox button{position:absolute;background:none;border:0;cursor:pointer;
+  color:rgba(255,255,255,.75);transition:color .3s;line-height:1}
+.lightbox button:hover{color:#fff}
+.lightbox__close{top:1.25rem;right:1.5rem;font-size:2.25rem}
+.lightbox__nav{top:50%;transform:translateY(-50%);font-size:3rem;padding:1rem}
+.lightbox__nav--prev{left:.5rem}
+.lightbox__nav--next{right:.5rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1 id="names"></h1>
+  <p class="sub">Three directions for your wedding website. Identical content in all concepts — only the design changes.</p>
+  <p class="note">Every concept holds identical content and works from the same file. Photography drops in as section backgrounds once your images arrive. Everything else is live: real times, real addresses, working map links. Open each and tell us which feels like your day.</p>
+  <p class="note" style="font-size:.8125rem">If a link below does nothing, the three concept files need to sit in the same folder as this page.</p>
+
+  <div id="cards"></div>
+
+  <footer><p id="foot"></p></footer>
+</div>
+
+<!-- Client content. Replace this file per couple; nothing else changes. -->
+<script src="site-data.js"></script>
+<!-- Shared engine, same file the three concepts load. -->
+<script src="engine.js"></script>
+
+<script>
+const FILES = {
+  d_prospect:  "concept-a-prospect-avenue.html",
+  d_editorial: "concept-b-editorial.html",
+  d_refined:   "concept-c-refined.html"
+};
+const LETTERS = ["A","B","C"];
+
+/* Readable phrasing for the layout and motif tokens carried in the JSON.
+   The data stays semantic; the wording lives here. */
+const LAYOUT = {
+  "single-page":    "One centred column",
+  "editorial-grid": "Twelve-column magazine grid",
+  "full-bleed":     "Full width, no containers"
+};
+const MOTIF = {
+  "stationery-card":  "Opens on a card of stationery",
+  "double-rule":      "Double gold rules between sections",
+  "gold-spine":       "Events threaded on a gold line",
+  "sticky-heads":     "Headings hold while content scrolls",
+  "crowned-panels":   "Each event crowned with its hour",
+  "chapter-focus":    "Chapters light up as you reach them",
+  "matches-reference": "Closest to the couple\u2019s own photographer reference",
+  "monumental-type":  "Names and hours set very large",
+  "hairline-rules":   "Hairline rules, no cards",
+  "ledger-years":     "The story reads as a ledger of years"
+};
+
+/* The heading comes from the data, so this page never needs hand-editing
+   per client. Only the <title> in the head does. */
+document.getElementById("names").innerHTML =
+  W.names.map(esc).join(' <em>&amp;</em> ');
+
+document.getElementById("cards").innerHTML = DATA.design.directions.map((d, i) => {
+  const p = d.palette;
+  const band = [p.background, p.surface, p.ink, p.accent, p.muted]
+    .map(c => '<div class="sw" style="background:' + c + '"></div>').join("");
+  const points = [LAYOUT[d.layout]]
+    .concat((d.motifs || []).map(m => MOTIF[m]))
+    .filter(Boolean)
+    .concat(d.typography.display + " and " + d.typography.body)
+    .map(t => "<li>" + esc(t) + "</li>").join("");
+  return `
+    <article class="card" style="--i:${i}">
+      <div class="card__band">${band}</div>
+      <div class="card__body">
+        <div>
+          <p class="card__opt">Concept ${LETTERS[i]}${d.id === DATA.design.selectedDirectionId ? ' &middot; <span class="rec">our pick</span>' : ""}</p>
+          <h2>${esc(d.name)}</h2>
+          <p class="desc">${esc(d.rationale)}</p>
+          <ul class="points">${points}</ul>
+        </div>
+        <a class="view" href="${FILES[d.id]}">View this version</a>
+      </div>
+    </article>`;
+}).join("");
+
+document.getElementById("foot").textContent =
+  W.date.medium + "  ·  " + W.locality + "  ·  " + daysUntil() + " days to go";
+
+const cards = document.querySelectorAll(".card");
+if (REDUCED || !("IntersectionObserver" in window)) {
+  cards.forEach(c => c.classList.add("is-in"));
+} else {
+  const io = new IntersectionObserver((es, o) => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add("is-in"); o.unobserve(e.target); }
+  }), { threshold: .15 });
+  cards.forEach((c, i) => { c.style.transitionDelay = (i * 120) + "ms"; io.observe(c); });
+}
+</script>
+</body>
+</html>
