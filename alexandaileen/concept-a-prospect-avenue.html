@@ -504,7 +504,7 @@ const DATA = {
         "postalCode": "60025",
         "country": "US"
       },
-      "parkingNotes": "Parking is available on site. The lot fills quickly, so please plan accordingly."
+      "parkingNotes": "Parking is available on site."
     },
     {
       "id": "v_club",
@@ -530,7 +530,7 @@ const DATA = {
       "venueId": "v_church",
       "dressCode": {
         "label": "Formal",
-        "notes": "Formal attire. Please dress in something elegant and sophisticated — a suit and tie, or a floor-length or cocktail dress. Shoulders should be covered inside the church."
+        "notes": "Formal attire. Suit and tie for the gentlemen, a long or cocktail dress for the ladies."
       },
       "rsvp": {
         "required": false
@@ -540,12 +540,12 @@ const DATA = {
       "id": "e_cocktails",
       "name": "Cocktail Hour",
       "type": "reception",
-      "description": "Drinks and passed hors d'oeuvres. Weather permitting, this will be held on the terrace at the back of the building, overlooking the club grounds.",
+      "description": "Drinks and passed hors d'oeuvres. Weather permitting, this will be held on the terrace overlooking the club grounds.",
       "startsAt": "2026-10-23T17:30:00-05:00",
       "venueId": "v_club",
       "dressCode": {
         "label": "Formal",
-        "notes": "Formal attire. Please dress in something elegant and sophisticated — a suit and tie, or a floor-length or cocktail dress."
+        "notes": "Formal attire. Suit and tie for the gentlemen, a long or cocktail dress for the ladies."
       },
       "rsvp": {
         "required": false
@@ -555,13 +555,13 @@ const DATA = {
       "id": "e_reception",
       "name": "Reception",
       "type": "reception",
-      "description": "A plated dinner, and dancing to follow.",
+      "description": "Dinner, and dancing to follow.",
       "startsAt": "2026-10-23T18:30:00-05:00",
       "endsAt": "2026-10-24T00:00:00-05:00",
       "venueId": "v_club",
       "dressCode": {
         "label": "Formal",
-        "notes": "Formal attire. Please dress in something elegant and sophisticated — a suit and tie, or a floor-length or cocktail dress."
+        "notes": "Formal attire. Suit and tie for the gentlemen, a long or cocktail dress for the ladies."
       },
       "rsvp": {
         "required": false,
@@ -810,7 +810,7 @@ const DATA = {
     "liveSongRequests": false
   },
   "registry": {
-    "intro": "We are simply grateful that you are making the trip. If you would like to give a gift, we have registered at Crate & Barrel.",
+    "intro": "We are registered at Crate & Barrel.",
     "links": [
       {
         "name": "Crate & Barrel",
@@ -895,8 +895,7 @@ const W = {
       maps: mapsUrl(v.name + ", " + addrOf(v)),
       about: e.description,
       tradition: e.culturalNote || null,
-      note: (v.parkingNotes || "") +
-            (e.id === "e_ceremony" ? " Shoulders covered in church, please." : "")
+      note: (v.parkingNotes || "")
     };
   }),
 
